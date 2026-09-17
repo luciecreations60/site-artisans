@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Démo · Votre site d'artisan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FAFAF9; --surface:#FFFFFF; --subtle:#F4F4F3; --ink:#0A0A0A; --muted:#6B6B6B; --line:#E7E6E3; --line2:#D6D5D1;
+  --inv:#0A0A0A; --inv-ink:#FFFFFF; --ok:#15803D;
+  --font:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'Geist Mono',ui-monospace,Menlo,monospace;
+  --demobar:52px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#0B0B0B;--surface:#141414;--subtle:#1B1B1B;--ink:#EDEDED;--muted:#9A9A9A;--line:#262626;--line2:#333;--inv:#EDEDED;--inv-ink:#0B0B0B;--ok:#4ADE80;}
+}
+:root[data-theme="dark"]{--bg:#0B0B0B;--surface:#141414;--subtle:#1B1B1B;--ink:#EDEDED;--muted:#9A9A9A;--line:#262626;--line2:#333;--inv:#EDEDED;--inv-ink:#0B0B0B;--ok:#4ADE80;}
+*{box-sizing:border-box}
+html{-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.5;font-size:15px}
+button,input{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+[hidden]{display:none !important}
+
+/* ================= Configurateur ================= */
+.shell{max-width:1200px;margin:0 auto;padding:0 clamp(16px,3vw,32px)}
+header.top{display:flex;align-items:center;justify-content:space-between;height:64px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.01em}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--inv);display:block}
+.top a{color:var(--muted);font-size:14px;text-decoration:none}
+.top a:hover{color:var(--ink)}
+.intro{padding:72px 0 40px;max-width:760px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.kicker b{width:6px;height:6px;border-radius:3px;background:var(--ok)}
+.intro h1{margin:16px 0 14px;font-size:clamp(38px,5.4vw,64px);line-height:1;letter-spacing:-.045em;font-weight:600}
+.intro h1 span{color:var(--muted)}
+.intro p{margin:0;color:var(--muted);font-size:17px;max-width:520px}
+.steps3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding-bottom:40px;align-items:start}
+@media (max-width:900px){.steps3{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.glabel{font-family:var(--mono);font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.card h2{margin:0;font-size:22px;letter-spacing:-.02em;font-weight:600}
+.trades{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.trade{border-radius:14px;border:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;align-items:flex-start;gap:18px;padding:14px;font-weight:500;text-align:left;transition:border-color .15s,background .15s}
+.trade:hover{border-color:var(--line2)}
+.trade[aria-pressed="true"]{background:var(--inv);color:var(--inv-ink);border-color:var(--inv)}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:520px){.fields{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font-size:13px;color:var(--muted)}
+.field input{height:44px;border-radius:10px;border:1px solid var(--line);background:var(--bg);padding:0 12px;width:100%}
+.field input:hover{border-color:var(--line2)}
+.field input:focus{outline:none;border-color:var(--ink)}
+.plans{display:flex;flex-direction:column;gap:8px}
+.plan{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:16px;text-align:left;display:grid;grid-template-columns:20px 1fr auto;gap:12px;align-items:start;transition:border-color .15s}
+.plan:hover{border-color:var(--line2)}
+.plan[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+.radio{width:18px;height:18px;border-radius:9px;border:1.5px solid var(--line2);margin-top:2px;display:grid;place-items:center}
+.plan[aria-pressed="true"] .radio{border-color:var(--ink)}
+.plan[aria-pressed="true"] .radio::after{content:"";width:8px;height:8px;border-radius:4px;background:var(--ink)}
+.plan .n{font-weight:600}
+.plan .d{font-size:13px;color:var(--muted)}
+.plan .p{font-weight:600;letter-spacing:-.02em;text-align:right}
+.plan .p small{display:block;font-weight:400;font-size:12px;color:var(--muted)}
+.feat{display:flex;flex-direction:column}
+.f{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.f.off{color:var(--muted)}
+.f em{margin-left:auto;font-style:normal;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.launch{position:sticky;bottom:0;padding:16px 0 24px;background:linear-gradient(to top,var(--bg) 70%,transparent)}
+.launch-in{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 14px 14px 22px;box-shadow:0 20px 40px -20px rgba(0,0,0,.2)}
+.recap{font-size:14px;color:var(--muted)}
+.recap b{color:var(--ink);font-weight:600}
+.go{display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 24px;border-radius:12px;border:none;background:var(--inv);color:var(--inv-ink);font-weight:600;font-size:16px;transition:opacity .15s}
+.go:hover{opacity:.88}
+
+/* ================= Barre démo (au-dessus du site) ================= */
+.demobar{position:sticky;top:0;z-index:50;height:var(--demobar);background:#0A0A0A;color:#FFF;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;padding:0 12px;font-size:13px}
+.demobar .l,.demobar .r{display:flex;align-items:center;gap:8px}
+.demobar .r{justify-content:flex-end}
+.db-btn{height:36px;padding:0 12px;border-radius:9px;border:1px solid #2A2A2A;background:#161616;color:#FFF;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;white-space:nowrap}
+.db-btn:hover{background:#222}
+.db-tag{font-family:var(--mono);font-size:11px;color:#9A9A9A;text-transform:uppercase;letter-spacing:.06em}
+.db-seg{display:inline-flex;padding:3px;border-radius:10px;background:#161616;border:1px solid #2A2A2A}
+.db-seg button{height:30px;padding:0 12px;border:none;border-radius:7px;background:transparent;color:#9A9A9A;font-size:13px;font-weight:500}
+.db-seg button[aria-pressed="true"]{background:#FFF;color:#0A0A0A}
+.db-sws{display:flex;gap:6px}
+.db-sw{width:22px;height:22px;border-radius:11px;border:2px solid #0A0A0A;padding:0;box-shadow:0 0 0 1px #333}
+.db-sw[aria-pressed="true"]{box-shadow:0 0 0 2px #FFF}
+.db-cta{height:36px;padding:0 14px;border-radius:9px;border:none;background:#FFF;color:#0A0A0A;font-weight:600;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:13px;white-space:nowrap}
+.showbar{position:fixed;right:14px;top:14px;z-index:60;height:36px;padding:0 12px;border-radius:999px;border:none;background:#0A0A0A;color:#FFF;font-size:12px;font-weight:600;box-shadow:0 8px 20px rgba(0,0,0,.25)}
+body.nobar{--demobar:0px}
+@media (max-width:860px){
+  .demobar{grid-template-columns:auto 1fr auto}
+  .db-hide-sm{display:none !important}
+  .demobar .c{justify-self:center}
+}
+@media (max-width:420px){.db-seg button{padding:0 8px}}
+
+/* ================= Site généré ================= */
+.site{--a:#1D4ED8;--at:color-mix(in srgb,var(--a) 9%,#FFFFFF);--at2:color-mix(in srgb,var(--a) 18%,#F5F5F4);
+  container-type:inline-size;font-family:var(--font);color:#0A0A0A;background:#FFFFFF;min-height:calc(100vh - var(--demobar));display:flex;flex-direction:column;font-size:15px}
+.site a{color:inherit;text-decoration:none}
+.site .in{width:100%;max-width:1240px;margin:0 auto}
+.site .nav{position:sticky;top:var(--demobar);z-index:20;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #EFEEEB}
+.site .nav .in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 32px;height:68px}
+.site .logo{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:-.02em;font-size:17px}
+.site .logo i{width:28px;height:28px;border-radius:8px;background:var(--a);display:grid;place-items:center}
+.site .links{display:flex;align-items:center;gap:2px}
+.site .links button{height:38px;padding:0 13px;border:none;background:transparent;border-radius:8px;font-size:14px;color:#6B6B6B;font-weight:500}
+.site .links button:hover{color:#0A0A0A}
+.site .links button.cur{color:#0A0A0A;background:#F4F4F3}
+.site .call{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 16px;border-radius:999px;background:#0A0A0A;color:#FFF !important;font-size:14px;font-weight:500;margin-left:8px}
+.site .mnav{display:none}
+.site .sec{padding:96px 32px}
+.site .label{font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#6B6B6B}
+.site h1,.site h2,.site h3{margin:0;font-weight:600}
+.site h2{font-size:48px;line-height:1.03;letter-spacing:-.045em;margin-top:12px;max-width:720px}
+.site .hero{padding:80px 32px 36px}
+.site .avail{display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 12px;border-radius:999px;border:1px solid #EFEEEB;font-size:13px;color:#3F3F3F}
+.site .avail i{width:6px;height:6px;border-radius:3px;background:#16A34A}
+.site .hero h1{font-size:clamp(44px,7cqw,92px);line-height:.96;letter-spacing:-.055em;margin:24px 0 0;max-width:1000px}
+.site .hero h1 span{color:var(--a)}
+.site .herorow{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-top:32px;flex-wrap:wrap}
+.site .herorow p{margin:0;font-size:18px;color:#5B5B5B;max-width:480px}
+.site .btns{display:flex;gap:8px;flex-wrap:wrap}
+.site .bp,.site .bs{height:52px;padding:0 22px;border-radius:999px;font-weight:500;font-size:15px;display:inline-flex;align-items:center;gap:8px;border:none}
+.site .bp{background:var(--a);color:#FFF}
+.site .bs{background:#F4F4F3;color:#0A0A0A}
+.site .img{border-radius:20px;background:var(--at2);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:14px}
+.site .img::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 80% at 80% 0%,rgba(255,255,255,.55),transparent 60%)}
+.site .img span{position:relative;font-family:var(--mono);font-size:11px;color:color-mix(in srgb,var(--a) 70%,#000);background:rgba(255,255,255,.75);backdrop-filter:blur(6px);padding:4px 8px;border-radius:6px}
+.site .heroimg{height:min(62vh,600px);min-height:280px;margin:0 32px}
+.site .rating{position:absolute;right:18px;top:18px;background:#FFF;border-radius:16px;padding:14px 16px;box-shadow:0 12px 30px -10px rgba(0,0,0,.25);display:flex;flex-direction:column;gap:2px;min-width:180px}
+.site .rating b{font-size:28px;letter-spacing:-.03em}
+.site .rating small{font-size:12px;color:#6B6B6B}
+.site .st{color:#EAB308;letter-spacing:1px;font-size:13px}
+.site .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:36px 32px 0;border-top:1px solid #EFEEEB;border-bottom:1px solid #EFEEEB}
+.site .facts div{padding:24px 0;display:flex;flex-direction:column;gap:2px}
+.site .facts div + div{padding-left:24px;border-left:1px solid #EFEEEB}
+.site .facts b{font-size:28px;letter-spacing:-.03em;font-weight:600}
+.site .facts span{font-size:13px;color:#6B6B6B}
+.site .svc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:44px}
+.site .scard{border:1px solid #EFEEEB;border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:10px;transition:border-color .2s,transform .2s}
+.site .scard:hover{border-color:#D6D5D1;transform:translateY(-2px)}
+.site .num{font-family:var(--mono);font-size:12px;color:#8A8A8A}
+.site .scard h3{font-size:22px;letter-spacing:-.02em;margin-top:40px}
+.site .scard p{margin:0;color:#5B5B5B;font-size:15px}
+.site .more{margin-top:auto;padding-top:8px;font-size:14px;font-weight:500;color:var(--a);background:none;border:none;padding-left:0;text-align:left}
+.site .bento{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:220px;gap:12px;margin-top:44px}
+.site .span2{grid-column:span 2}.site .row2{grid-row:span 2}
+.site .ba{display:flex;padding:0}
+.site .ba > div{flex:1;display:flex;padding:14px;align-items:flex-start;position:relative}
+.site .ba .before{background:#E7E5E4}
+.site .ba .after{background:var(--at2);justify-content:flex-end}
+.site .tagb{position:relative;font-family:var(--mono);font-size:11px;background:#FFF;padding:4px 8px;border-radius:6px}
+.site .knob{position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:#FFF;z-index:2}
+.site .knob i{position:absolute;top:50%;left:50%;width:44px;height:44px;margin:-22px;border-radius:22px;background:#FFF;display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.site .video{background:#0A0A0A;justify-content:center;align-items:center;flex-direction:column;gap:8px;color:#FFF;font-size:13px}
+.site .video::before{display:none}
+.site .simplegal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:44px}
+.site .simplegal .img{height:280px}
+.site .alt{background:#FAFAF9}
+.site .rv{display:grid;grid-template-columns:300px minmax(0,1fr);gap:48px;margin-top:44px}
+.site .score b{font-size:104px;line-height:1;letter-spacing:-.06em;font-weight:600}
+.site .score .st{font-size:20px}
+.site .score p{margin:10px 0 20px;color:#6B6B6B;font-size:14px}
+.site .quotes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.site .q{background:#FFF;border:1px solid #EFEEEB;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:14px}
+.site .q p{margin:0;font-size:16px;line-height:1.55}
+.site .who{display:flex;align-items:center;gap:10px;margin-top:auto;font-size:14px}
+.site .av{width:34px;height:34px;border-radius:17px;background:#F4F4F3;display:grid;place-items:center;font-size:13px;font-weight:600}
+.site .who small{display:block;font-size:12px;color:#8A8A8A}
+.site .demo{font-family:var(--mono);font-size:10px;color:#9A9A9A;text-transform:uppercase;letter-spacing:.05em;margin-left:auto}
+.site .simplerating{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border:1px solid #EFEEEB;border-radius:20px;padding:24px 26px;margin-top:28px}
+.site .contact{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px;align-items:start}
+.site .lines{margin-top:32px;border-top:1px solid #EFEEEB}
+.site .line{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 0;border-bottom:1px solid #EFEEEB;font-size:16px}
+.site .line span{color:#6B6B6B;font-size:14px}
+.site .wa{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:999px;background:#F4F4F3;margin-top:18px;font-size:14px;font-weight:500}
+.site .form{background:#F7F7F6;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.site .form h3{font-size:24px;letter-spacing:-.02em}
+.site .fl label{display:block;font-size:13px;color:#6B6B6B;margin-bottom:6px}
+.site .fl input,.site .fl textarea{width:100%;min-height:48px;border-radius:12px;border:1px solid #E7E6E3;background:#FFF;padding:12px 14px;font-family:inherit;font-size:16px;color:#0A0A0A}
+.site .fl textarea{min-height:100px;resize:vertical}
+.site .fl input:focus,.site .fl textarea:focus{outline:none;border-color:var(--a)}
+.site .form .bp{justify-content:center}
+.site .bar2{display:flex;justify-content:space-between;align-items:center}
+.site .stp{display:flex;gap:4px}
+.site .stp i{width:24px;height:4px;border-radius:2px;background:#E7E6E3}
+.site .stp i.on{background:var(--a)}
+.site .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.site .opt{min-height:54px;border-radius:12px;border:1px solid #E7E6E3;background:#FFF;font-size:14px;font-weight:500;padding:6px 12px;text-align:left;color:#0A0A0A}
+.site .opt.sel{border-color:var(--a);box-shadow:0 0 0 1px var(--a);background:var(--at)}
+.site .ghost{height:52px;border-radius:999px;border:1px solid #E7E6E3;background:#FFF;font-weight:500;padding:0 18px;color:#0A0A0A}
+.site .bp[disabled]{opacity:.4;cursor:not-allowed}
+.site .done{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:24px 8px}
+.site .done i{width:56px;height:56px;border-radius:28px;background:var(--a);display:grid;place-items:center}
+.site .map{height:340px;border-radius:24px;background:#F4F4F3;margin-top:40px;overflow:hidden}
+.site .towns{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.site .towns a{height:36px;padding:0 14px;border-radius:999px;border:1px solid #EFEEEB;display:inline-flex;align-items:center;font-size:14px}
+.site .news{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:44px}
+.site .news .img{height:260px}
+.site .news h3{font-size:21px;letter-spacing:-.02em;margin-top:16px}
+.site .news small{font-size:13px;color:#8A8A8A}
+.site .pro{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.05em;background:var(--a);color:#FFF;border-radius:5px;padding:2px 6px;margin-right:6px}
+.site footer{margin-top:auto;border-top:1px solid #EFEEEB}
+.site footer .in{padding:44px 32px;display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;font-size:13px;color:#6B6B6B}
+.site footer b{display:block;color:#0A0A0A;font-weight:600;margin-bottom:6px}
+.site .sticky{display:none}
+
+@container (max-width:760px){
+  .site .nav .in{padding:0 16px;height:60px}
+  .site .links{display:none}
+  .site .mnav{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;border-top:1px solid #EFEEEB;scrollbar-width:none}
+  .site .mnav button{flex-shrink:0;height:36px;padding:0 13px;border-radius:999px;border:1px solid #EFEEEB;background:#FFF;font-size:13px;font-weight:500;color:#0A0A0A}
+  .site .mnav button.cur{background:#0A0A0A;color:#FFF;border-color:#0A0A0A}
+  .site .sec{padding:56px 16px}
+  .site .hero{padding:40px 16px 20px}
+  .site .hero h1{font-size:44px}
+  .site h2{font-size:32px}
+  .site .herorow{margin-top:20px}
+  .site .herorow p{font-size:16px}
+  .site .heroimg{height:300px;margin:0 16px}
+  .site .facts{grid-template-columns:repeat(2,minmax(0,1fr));margin:24px 16px 0}
+  .site .facts div:nth-child(3){padding-left:0;border-left:none;border-top:1px solid #EFEEEB}
+  .site .facts div:nth-child(4){border-top:1px solid #EFEEEB}
+  .site .svc,.site .quotes,.site .contact,.site .news,.site .rv{grid-template-columns:1fr}
+  .site .rv,.site .contact{gap:28px}
+  .site .scard h3{margin-top:20px}
+  .site .bento{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px}
+  .site .simplegal{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .site .simplegal .img{height:160px}
+  .site .score b{font-size:72px}
+  .site .opts{grid-template-columns:1fr}
+  .site footer .in{padding:32px 16px 96px}
+  .site .sticky{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:30;padding:10px 12px 14px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid #EFEEEB}
+  .site .sticky a,.site .sticky button{height:52px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:500;border:none;font-size:15px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ VUE 1 : CONFIGURATEUR ============ -->
+<div id="configView">
+  <div class="shell">
+    <header class="top">
+      <div class="brand"><i></i>[Votre marque]</div>
+      <a id="topContact" href="#">Nous contacter</a>
+    </header>
+
+    <section class="intro">
+      <div class="kicker"><b></b>Démo personnalisée</div>
+      <h1>Découvrez votre site<br><span>avant même de signer.</span></h1>
+      <p>Renseignez quelques informations, choisissez une formule, puis ouvrez votre site de démonstration en plein écran.</p>
+    </section>
+
+    <div class="steps3">
+      <section class="card" aria-labelledby="h-info">
+        <div class="glabel">Étape 1</div>
+        <h2 id="h-info">Votre activité</h2>
+        <div class="trades" id="trades"></div>
+        <div class="fields">
+          <div class="field full"><label for="nom">Nom de l'entreprise</label><input id="nom" autocomplete="organization"></div>
+          <div class="field"><label for="ville">Ville principale</label><input id="ville" autocomplete="address-level2"></div>
+          <div class="field"><label for="tel">Téléphone</label><input id="tel" type="tel" autocomplete="tel"></div>
+          <div class="field full"><label for="email">Email</label><input id="email" type="email" autocomplete="email"></div>
+          <div class="field"><label for="note">Note Google</label><input id="note" inputmode="decimal"></div>
+          <div class="field"><label for="nb">Nombre d'avis</label><input id="nb" inputmode="numeric"></div>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="h-plan">
+        <div class="glabel">Étape 2</div>
+        <h2 id="h-plan">Votre formule</h2>
+        <div class="plans" id="plans"></div>
+        <div class="feat" id="feat" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <div class="launch">
+      <div class="launch-in">
+        <div class="recap" id="recap"></div>
+        <button class="go" id="go">Ouvrir mon site de démo
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ VUE 2 : SITE EN PLEIN ÉCRAN ============ -->
+<div id="siteView" hidden>
+  <div class="demobar" id="demobar">
+    <div class="l">
+      <button class="db-btn" id="back" aria-label="Retour au configurateur">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="M11 18l-6-6 6-6"/></svg>
+        <span class="db-hide-sm">Modifier</span>
+      </button>
+      <span class="db-tag db-hide-sm">Mode démo</span>
+    </div>
+    <div class="c"><div class="db-seg" id="dbPlans" role="group" aria-label="Formule"></div></div>
+    <div class="r">
+      <div class="db-sws db-hide-sm" id="dbSws" role="group" aria-label="Couleur"></div>
+      <a class="db-cta db-hide-sm" id="want" href="#">Je veux ce site</a>
+      <button class="db-btn" id="hideBar" aria-label="Masquer la barre de démo">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>
+      </button>
+    </div>
+  </div>
+  <button class="showbar" id="showBar" hidden>Barre démo</button>
+  <div class="site" id="site"></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- Réglages modifiables ---------- */
+var CONTACT_EMAIL = 'contact@votre-domaine.fr';
+var PLANS = {
+  simple:{nom:'Simple', prix:'[Prix]', sub:'[mensualité]', desc:'Être trouvé et joignable'},
+  plus:{nom:'Plus', prix:'[Prix]', sub:'[mensualité]', desc:'Rassurer et convaincre'},
+  pro:{nom:'Pro', prix:'[Prix]', sub:'[mensualité]', desc:'Des demandes chaque mois'}
+};
+var RANK = {simple:1, plus:2, pro:3};
+var FEATURES = [
+  ['Site une page, adapté au téléphone','simple'],
+  ['Nom de domaine à votre nom, hébergement, HTTPS','simple'],
+  ['Appel en un geste et formulaire de contact','simple'],
+  ['Mentions légales et RGPD','simple'],
+  ['Vous changez vos photos vous-même','simple'],
+  ['Site de 5 pages','plus'],
+  ['Avis Google mis à jour automatiquement','plus'],
+  ['Galerie avant / après et vidéos','plus'],
+  ['Devis en ligne en 3 étapes','pro'],
+  ['Pages par commune pour Google','pro'],
+  ['Bouton WhatsApp','pro'],
+  ['Actualités et publications Google','pro']
+];
+var COLORS = ['#0A0A0A','#1D4ED8','#15803D','#4D7C0F','#C2410C','#9F1239'];
+
+var P = {
+  drop:'<path d="M12 2.7s6 6.6 6 11.3a6 6 0 0 1-12 0c0-4.7 6-11.3 6-11.3z"/>',
+  bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  tree:'<path d="M12 22v-6"/><path d="M12 16a5 5 0 0 1-5-5 4 4 0 0 1 2-3.5A4 4 0 0 1 12 2a4 4 0 0 1 3 5.5A4 4 0 0 1 17 11a5 5 0 0 1-5 5z"/>',
+  scissors:'<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.1 15.9"/><path d="M14.5 14.5L20 20"/><path d="M8.1 8.1L12 12"/>',
+  phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+  arrow:'<path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>',
+  check:'<path d="M20 6L9 17l-5-5"/>',
+  lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/>',
+  lr:'<path d="M9 7l-5 5 5 5"/><path d="M15 7l5 5-5 5"/>',
+  play:'<path d="M8 5l11 7-11 7z"/>',
+  camera:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+  chat:'<path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/>'
+};
+function ic(n,s,c,w){return '<svg width="'+(s||16)+'" height="'+(s||16)+'" viewBox="0 0 24 24" fill="'+(n==='play'?(c||'currentColor'):'none')+'" stroke="'+(c||'currentColor')+'" stroke-width="'+(w||2)+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+P[n]+'</svg>';}
+
+var M = {
+  plombier:{label:'Plombier', sub:'Chauffagiste', icon:'drop', color:'#1D4ED8', nom:'Martin Plomberie', mot:'plombier',
+    t1:'Plombier à {ville}.', t2:'Rapide, propre, sans surprise.',
+    acc:'Fuites, dépannages, salles de bain et chauffe-eau. Un devis clair et un chantier laissé impeccable.',
+    fait:['7j/7','dépannage sur appel'],
+    services:[['Dépannage et fuites','Intervention rapide : fuites, WC bouchés, robinetterie, canalisations.'],['Salle de bain clé en main','De la dépose à la finition : douche à l\'italienne, meubles, raccordements.'],['Chauffe-eau et chaudière','Remplacement, entretien et mise en service de vos équipements.']],
+    photos:['douche-italienne.jpg','chauffe-eau.jpg','reseau-cuivre.jpg','cuisine.jpg','salle-de-bain.jpg'],
+    avis:['Venu le jour même pour une fuite. Explications claires, prix annoncé respecté.','Salle de bain refaite en 10 jours, chantier nettoyé chaque soir.','Très bon contact et travail propre. Un peu d\'attente pour le rendez-vous, mais ça valait le coup.'],
+    opts:['Fuite / dépannage','Salle de bain','Chauffe-eau','Autre projet'],
+    news:['Éviter le gel des canalisations cet hiver','Chauffe-eau : quand faut-il le remplacer ?']},
+  electricien:{label:'Électricien', sub:'Dépannage, normes', icon:'bolt', color:'#C2410C', nom:'Lefèvre Électricité', mot:'électricien',
+    t1:'Électricien à {ville}.', t2:'Une installation sûre, expliquée simplement.',
+    acc:'Mise aux normes, dépannages, rénovation et bornes de recharge pour véhicule électrique.',
+    fait:['Rapide','dépannage électrique'],
+    services:[['Mise aux normes','Tableau électrique, prises, mise à la terre : sécurisez votre logement.'],['Dépannage électrique','Panne, disjoncteur qui saute, court-circuit : diagnostic et réparation.'],['Borne de recharge','Installation de bornes pour véhicule électrique et domotique.']],
+    photos:['tableau-electrique.jpg','borne-recharge.jpg','eclairage-led.jpg','renovation.jpg','domotique.jpg'],
+    avis:['Tableau refait proprement, tout a été expliqué et étiqueté. Très professionnel.','Borne installée rapidement, dossier d\'aide géré avec nous.','Bon travail et ponctuel. Devis un peu long à recevoir mais très détaillé.'],
+    opts:['Panne / dépannage','Mise aux normes','Borne de recharge','Autre projet'],
+    news:['Borne de recharge : les étapes pour l\'installer','5 signes qu\'il faut changer votre tableau']},
+  paysagiste:{label:'Paysagiste', sub:'Création, aménagement', icon:'tree', color:'#15803D', nom:'Jardins Duval', mot:'paysagiste',
+    t1:'Paysagiste à {ville}.', t2:'Un extérieur qui vous ressemble.',
+    acc:'Conception, terrasses, allées et plantations. Nous imaginons et réalisons le jardin dont vous rêvez.',
+    fait:['Offerte','étude sur place'],
+    services:[['Création de jardins','Plans, choix des végétaux et réalisation complète de votre espace vert.'],['Terrasses et allées','Bois, pierre, pavés : des aménagements durables et élégants.'],['Plantations et gazon','Haies, massifs, arbres, engazonnement et arrosage automatique.']],
+    photos:['terrasse-bois.jpg','jardin-contemporain.jpg','allee-paves.jpg','massif.jpg','bassin.jpg'],
+    avis:['Notre jardin est méconnaissable. Le plan correspondait parfaitement au résultat.','Terrasse bois superbe, équipe agréable et délais respectés.','Très satisfaits. Quelques plantes remplacées sans discuter.'],
+    opts:['Création de jardin','Terrasse / allée','Plantations','Autre projet'],
+    news:['Un jardin sans arrosage : quelles plantes choisir','Terrasse bois ou pierre : comment choisir']},
+  jardinier:{label:'Jardinier', sub:'Entretien', icon:'scissors', color:'#4D7C0F', nom:'Au Jardin Net', mot:'jardinier',
+    t1:'Jardinier à {ville}.', t2:'Profitez du jardin, on s\'occupe du reste.',
+    acc:'Tonte, taille de haies et entretien régulier, avec évacuation des déchets verts.',
+    fait:['[Crédit d\'impôt]','si agréé services à la personne'],
+    services:[['Tonte et taille de haies','Un jardin net toute l\'année, déchets verts évacués.'],['Entretien régulier','Passages à la fréquence de votre choix, avec ou sans contrat.'],['Débroussaillage','Remise en état de terrains laissés à l\'abandon.']],
+    photos:['haie-taillee.jpg','pelouse.jpg','debroussaillage.jpg','massifs.jpg','arbustes.jpg'],
+    avis:['Passage tous les 15 jours, toujours ponctuel, le jardin est parfait.','30 mètres de haie taillés au cordeau, déchets emportés.','Sérieux et à l\'écoute. Un passage décalé pour la pluie, bien prévenu.'],
+    opts:['Tonte / haies','Entretien régulier','Débroussaillage','Autre besoin'],
+    news:['Quand tailler ses haies : le calendrier simple','Préparer son jardin pour l\'automne']}
+};
+
+var S = {m:'plombier', nom:M.plombier.nom, ville:'Votre ville', tel:'06 00 00 00 00', email:'contact@exemple.fr', note:'4,9', nb:'48', c:'', f:'plus',
+  page:'accueil', devis:{step:0,choix:null,delai:null}};
+var FIELDS=['nom','ville','tel','email','note','nb'];
+
+var $=function(i){return document.getElementById(i);};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function slug(s){return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'votre-site';}
+function stars(n){var v=parseFloat(String(n).replace(',','.'));if(isNaN(v))v=5;var f=Math.max(0,Math.min(5,Math.round(v)));return '★★★★★'.slice(0,f)+'☆☆☆☆☆'.slice(0,5-f);}
+function digits(t){var d=String(t).replace(/[^\d+]/g,'');return d;}
+function waNum(t){var d=String(t).replace(/\D/g,'');if(d.charAt(0)==='0')d='33'+d.slice(1);return d;}
+function img(label,cls,extra){return '<div class="img '+(cls||'')+'">'+(extra||'')+'<span>'+esc(label)+'</span></div>';}
+function accent(){return /^#[0-9A-Fa-f]{6}$/.test(S.c)?S.c:M[S.m].color;}
+
+/* ---------- Paramètres d'URL ---------- */
+function toQuery(){
+  var q=new URLSearchParams();
+  q.set('demo','1'); q.set('m',S.m); q.set('f',S.f);
+  FIELDS.forEach(function(k){q.set(k,S[k]);});
+  if(S.c) q.set('c',S.c);
+  return q.toString();
+}
+function fromQuery(){
+  var q;
+  try{q=new URLSearchParams(location.search);}catch(e){return false;}
+  if(q.get('m')&&M[q.get('m')]) S.m=q.get('m');
+  if(q.get('f')&&PLANS[q.get('f')]) S.f=q.get('f');
+  FIELDS.forEach(function(k){if(q.has(k)) S[k]=q.get(k).slice(0,80);});
+  if(q.get('c')) S.c=q.get('c');
+  return q.get('demo')==='1';
+}
+
+/* ---------- Configurateur ---------- */
+function renderConfig(){
+  $('trades').innerHTML=Object.keys(M).map(function(k){return '<button class="trade" data-m="'+k+'" aria-pressed="'+(S.m===k)+'">'+ic(M[k].icon,20,'currentColor',1.8)+'<span>'+M[k].label+'<br><small style="opacity:.6;font-weight:400">'+M[k].sub+'</small></span></button>';}).join('');
+  $('plans').innerHTML=Object.keys(PLANS).map(function(k){var p=PLANS[k];
+    return '<button class="plan" data-p="'+k+'" aria-pressed="'+(S.f===k)+'"><span class="radio"></span><span><span class="n">'+p.nom+'</span><br><span class="d">'+p.desc+'</span></span><span class="p">'+p.prix+'<small>'+p.sub+'</small></span></button>';}).join('');
+  var r=RANK[S.f];
+  $('feat').innerHTML=FEATURES.map(function(f){var on=r>=RANK[f[1]];
+    return '<div class="f'+(on?'':' off')+'">'+(on?ic('check',16,'var(--ok)',2.4):ic('lock',14))+'<span>'+esc(f[0])+'</span>'+(on?'':'<em>'+PLANS[f[1]].nom+'</em>')+'</div>';}).join('');
+  $('recap').innerHTML='<b>'+esc(S.nom||'Votre entreprise')+'</b> · '+M[S.m].label+' à '+esc(S.ville)+' · Formule <b>'+PLANS[S.f].nom+'</b>';
+  updateMail();
+}
+function syncInputs(){FIELDS.forEach(function(k){$(k).value=S[k];});}
+
+/* ---------- Site ---------- */
+function pages(){
+  if(S.f==='simple') return [];
+  var p=[['accueil','Accueil'],['services','Services'],['realisations','Réalisations'],['avis','Avis'],['contact',S.f==='pro'?'Devis':'Contact']];
+  if(S.f==='pro') p.splice(4,0,['zone','Secteur']);
+  return p;
+}
+function head(t){return '<div class="label">'+t+'</div>';}
+function telLink(inner,cls,style){return '<a class="'+(cls||'')+'" href="tel:'+esc(digits(S.tel))+'"'+(style?' style="'+style+'"':'')+'>'+inner+'</a>';}
+
+function hero(m){
+  return '<div class="in"><div class="hero"><span class="avail"><i></i>'+(S.f==='simple'?'Devis gratuit':'Disponible cette semaine')+'</span>'+
+    '<h1>'+esc(m.t1.replace('{ville}',S.ville))+' <span>'+esc(m.t2)+'</span></h1>'+
+    '<div class="herorow"><p>'+esc(m.acc)+'</p><div class="btns"><button class="bp" data-go="contact">'+(S.f==='pro'?'Devis en 2 minutes':'Demander un devis')+ic('arrow',16,'#FFFFFF')+'</button>'+
+    telLink(ic('phone',15)+esc(S.tel),'bs')+'</div></div></div>'+
+    img('photo-chantier.jpg','heroimg','<div class="rating"><small>Avis Google</small><b>'+esc(S.note)+'<small> / 5</small></b><span class="st">'+stars(S.note)+'</span><small>'+esc(S.nb)+' avis</small></div>')+
+    '<div class="facts"><div><b>[XX] ans</b><span>d\'expérience</span></div><div><b>'+esc(S.note)+'/5</b><span>'+esc(S.nb)+' avis Google</span></div><div><b>48 h</b><span>pour votre devis</span></div><div><b>'+esc(m.fait[0])+'</b><span>'+esc(m.fait[1])+'</span></div></div></div>';
+}
+function services(m,full){
+  return '<div class="in"><div class="sec">'+head('Services')+'<h2>Ce que nous faisons pour vous.</h2><div class="svc">'+
+    m.services.map(function(s,i){return '<div class="scard"><span class="num">0'+(i+1)+'</span><h3>'+esc(s[0])+'</h3><p>'+esc(s[1])+'</p>'+(full?'<button class="more" data-go="contact">Demander un devis →</button>':'')+'</div>';}).join('')+'</div></div></div>';
+}
+function gallery(m){
+  if(S.f==='simple'){
+    return '<div class="in"><div class="sec" style="padding-top:0">'+head('Réalisations')+'<h2>Quelques chantiers récents.</h2><div class="simplegal">'+m.photos.slice(0,3).map(function(p){return img(p);}).join('')+'</div></div></div>';
+  }
+  return '<div class="in"><div class="sec" style="padding-top:0">'+head('Réalisations')+'<h2>Avant, après. Jugez par vous-même.</h2><div class="bento">'+
+    '<div class="img ba span2 row2"><div class="before"><span class="tagb">Avant</span></div><div class="after"><span class="tagb">Après</span></div><span class="knob"><i>'+ic('lr',18,'#0A0A0A')+'</i></span></div>'+
+    img(m.photos[1])+'<div class="img video">'+ic('play',22,'#FFFFFF')+'Vidéo · 0:45</div>'+
+    img(m.photos[2],'span2')+img(m.photos[3])+img(m.photos[4])+'</div></div></div>';
+}
+function reviews(m){
+  if(S.f==='simple'){
+    return '<div class="in"><div class="sec" style="padding-top:0">'+head('Avis')+'<div class="simplerating"><div><b style="font-size:34px;letter-spacing:-.03em">'+esc(S.note)+' / 5</b> <span class="st" style="font-size:16px">'+stars(S.note)+'</span><div style="font-size:13px;color:#6B6B6B">'+esc(S.nb)+' avis sur Google</div></div><a class="bs" href="#">Voir les avis</a></div></div></div>';
+  }
+  var names=['Sophie L.','Marc D.','Claire B.'], when=['il y a 2 semaines','il y a 1 mois','il y a 2 mois'], st=['★★★★★','★★★★★','★★★★☆'];
+  return '<div class="alt"><div class="in"><div class="sec">'+head('Avis clients')+'<h2>Ils nous ont fait confiance.</h2><div class="rv">'+
+    '<div class="score"><b>'+esc(S.note)+'</b><div class="st">'+stars(S.note)+'</div><p>'+esc(S.nb)+' avis vérifiés sur Google, mis à jour automatiquement.</p><a class="bs" href="#">Laisser un avis</a></div>'+
+    '<div class="quotes">'+m.avis.map(function(a,i){return '<div class="q"><span class="st">'+st[i]+'</span><p>'+esc(a)+'</p><div class="who"><span class="av">'+names[i][0]+'</span><div>'+names[i]+'<small>'+when[i]+'</small></div><span class="demo">Exemple</span></div></div>';}).join('')+
+    '<div class="q" style="border-style:dashed;justify-content:center"><b>Vous êtes client ?</b><p style="color:#6B6B6B">Scannez le QR code de votre facture et laissez votre avis en 30 secondes.</p></div>'+
+    '</div></div></div></div>';
+}
+function contact(m){
+  var left='<div>'+head('Contact')+'<h2>Parlons de votre projet.</h2><div class="lines">'+
+    telLink('<b style="font-weight:500">'+esc(S.tel)+'</b><span>Appeler</span>','line')+
+    '<a class="line" href="mailto:'+esc(S.email)+'"><b style="font-weight:500">'+esc(S.email)+'</b><span>Écrire</span></a>'+
+    '<div class="line"><b style="font-weight:500">'+esc(S.ville)+' et alentours</b><span>[XX] km</span></div>'+
+    '<div class="line"><b style="font-weight:500">Lun – Ven</b><span>8h – 18h</span></div></div>'+
+    (S.f==='pro'?'<a class="wa" href="https://wa.me/'+esc(waNum(S.tel))+'" target="_blank" rel="noopener">'+ic('chat',16)+'Discuter sur WhatsApp</a>':'')+'</div>';
+  var f;
+  if(S.f!=='pro'){
+    f='<div class="form"><h3>Demande de contact</h3><div class="fl"><label for="c-n">Nom</label><input id="c-n"></div><div class="fl"><label for="c-t">Téléphone</label><input id="c-t" type="tel"></div><div class="fl"><label for="c-m">Votre besoin</label><textarea id="c-m"></textarea></div><button class="bp" data-send="1">Envoyer</button></div>';
+  } else {
+    var d=S.devis, stp='<div class="stp">'+[0,1,2].map(function(i){return '<i class="'+(i<=d.step?'on':'')+'"></i>';}).join('')+'</div>';
+    f='<div class="form"><div class="bar2"><h3>Devis en ligne</h3>'+(d.step<3?stp:'')+'</div>';
+    if(d.step===0){
+      f+='<div style="font-size:14px;color:#6B6B6B">Quel est votre besoin ?</div><div class="opts">'+m.opts.map(function(o){return '<button class="opt'+(d.choix===o?' sel':'')+'" data-choix="'+esc(o)+'">'+esc(o)+'</button>';}).join('')+'</div>'+
+        '<button class="bp" data-next="1"'+(d.choix?'':' disabled')+'>Continuer</button>';
+    } else if(d.step===1){
+      f+='<div style="font-size:14px;color:#6B6B6B">Pour quand ?</div><div class="opts">'+['C\'est urgent','Sous 1 mois','Dans 3 mois','Je me renseigne'].map(function(o){return '<button class="opt'+(d.delai===o?' sel':'')+'" data-delai="'+esc(o)+'">'+esc(o)+'</button>';}).join('')+'</div>'+
+        '<button class="opt" style="border-style:dashed;display:flex;align-items:center;gap:8px;justify-content:center">'+ic('camera',16)+'Ajouter une photo (facultatif)</button>'+
+        '<div style="display:flex;gap:8px"><button class="ghost" data-prev="1">Retour</button><button class="bp" style="flex:1" data-next="1"'+(d.delai?'':' disabled')+'>Continuer</button></div>';
+    } else if(d.step===2){
+      f+='<div class="fl"><label for="d-n">Nom</label><input id="d-n"></div><div class="fl"><label for="d-t">Téléphone</label><input id="d-t" type="tel"></div><div class="fl"><label for="d-v">Commune</label><input id="d-v" value="'+esc(S.ville)+'"></div>'+
+        '<div style="display:flex;gap:8px"><button class="ghost" data-prev="1">Retour</button><button class="bp" style="flex:1" data-next="1">Recevoir mon devis</button></div>';
+    } else {
+      f+='<div class="done"><i>'+ic('check',26,'#FFFFFF',2.5)+'</i><b style="font-size:19px">Demande envoyée</b><span style="color:#6B6B6B;font-size:14px">'+esc(d.choix)+' · '+esc(d.delai)+'<br>'+esc(S.nom)+' vous recontacte sous 24 h.</span><button class="ghost" data-reset="1">Nouvelle demande</button></div>';
+    }
+    f+='<span style="font-size:12px;color:#8A8A8A">Vos données servent uniquement à répondre à votre demande.</span></div>';
+  }
+  return '<div class="in"><div class="sec" id="s-contact"><div class="contact">'+left+f+'</div></div></div>';
+}
+function zone(m){
+  return '<div class="in"><div class="sec">'+head('Secteur')+'<h2>Nous intervenons à '+esc(S.ville)+' et alentours.</h2>'+
+    '<div class="map"><svg width="100%" height="340" viewBox="0 0 1000 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 130 C220 80 380 210 580 160 S880 80 1000 130" stroke="#E7E6E3" stroke-width="14" fill="none"/><path d="M300 0 C350 120 270 230 360 340" stroke="#E7E6E3" stroke-width="10" fill="none"/><path d="M700 0 C680 130 760 230 720 340" stroke="#E7E6E3" stroke-width="8" fill="none"/><circle cx="500" cy="170" r="135" fill="var(--a)" fill-opacity=".08" stroke="var(--a)" stroke-opacity=".5" stroke-dasharray="6 6"/><circle cx="500" cy="170" r="10" fill="var(--a)"/><circle cx="500" cy="170" r="4" fill="#fff"/></svg></div>'+
+    '<div class="towns"><a href="#">'+esc(m.label)+' '+esc(S.ville)+'</a><a href="#">[Commune 2]</a><a href="#">[Commune 3]</a><a href="#">[Commune 4]</a><a href="#">[Commune 5]</a></div>'+
+    '<p style="font-size:14px;color:#6B6B6B;margin:16px 0 0"><span class="pro">Pro</span>Une page par commune pour ressortir sur « '+esc(m.mot)+' + commune ».</p></div></div>';
+}
+function news(m){
+  return '<div class="in"><div class="sec" style="padding-top:0">'+head('Actualités')+'<h2>Conseils et nouvelles.</h2><div class="news">'+
+    m.news.map(function(n){return '<a href="#">'+img('article.jpg')+'<h3>'+esc(n)+'</h3><small>Par '+esc(S.nom)+'</small></a>';}).join('')+'</div></div></div>';
+}
+
+function renderSite(){
+  var m=M[S.m], el=$('site');
+  el.style.setProperty('--a', accent());
+  var pg=pages(), p=S.page;
+  if(!pg.some(function(x){return x[0]===p;})) p='accueil';
+  S.page=p;
+  var tabs=function(){return pg.map(function(x){return '<button data-page="'+x[0]+'" class="'+(x[0]===p?'cur':'')+'">'+x[1]+'</button>';}).join('');};
+  var nav='<div class="nav"><div class="in"><div class="logo"><i>'+ic(m.icon,15,'#FFFFFF',2)+'</i>'+esc(S.nom)+'</div>'+
+    '<div class="links">'+tabs()+telLink(ic('phone',14,'#FFFFFF')+esc(S.tel),'call')+'</div></div>'+(pg.length?'<div class="mnav">'+tabs()+'</div>':'')+'</div>';
+  var body;
+  if(S.f==='simple') body=hero(m)+services(m,false)+gallery(m)+reviews(m)+contact(m);
+  else if(p==='accueil') body=hero(m)+services(m,false)+gallery(m)+reviews(m)+(S.f==='pro'?'<div style="height:96px"></div>'+news(m):'')+contact(m);
+  else if(p==='services') body=services(m,true)+contact(m);
+  else if(p==='realisations') body='<div style="height:96px"></div>'+gallery(m);
+  else if(p==='avis') body=reviews(m);
+  else if(p==='zone') body=zone(m)+contact(m);
+  else body=contact(m);
+  var foot='<footer><div class="in"><div><b>'+esc(S.nom)+'</b>'+esc(m.label)+' à '+esc(S.ville)+'<br>SIRET [numéro]</div><div><b>Contact</b>'+esc(S.tel)+'<br>'+esc(S.email)+'</div><div><b>Légal</b>Mentions légales<br>Confidentialité</div></div></footer>';
+  var sticky='<div class="sticky">'+telLink(ic('phone',16)+'Appeler','','background:#F4F4F3')+'<button data-go="contact" style="background:var(--a);color:#FFF">'+(S.f==='pro'?'Devis en ligne':'Devis gratuit')+'</button></div>';
+  el.innerHTML=nav+body+foot+sticky;
+  document.title=S.nom+' · '+m.label+' à '+S.ville;
+}
+function renderBar(){
+  $('dbPlans').innerHTML=Object.keys(PLANS).map(function(k){return '<button data-p="'+k+'" aria-pressed="'+(S.f===k)+'">'+PLANS[k].nom+'</button>';}).join('');
+  var cur=accent();
+  $('dbSws').innerHTML=COLORS.map(function(c){return '<button class="db-sw" data-c="'+c+'" style="background:'+c+'" aria-label="Couleur '+c+'" aria-pressed="'+(cur===c)+'"></button>';}).join('');
+  updateMail();
+}
+function updateMail(){
+  var body=['Bonjour,','','Je suis intéressé(e) par la formule '+PLANS[S.f].nom+'.','Entreprise : '+S.nom,'Métier : '+M[S.m].label,'Ville : '+S.ville,'Téléphone : '+S.tel,'Email : '+S.email].join('\r\n');
+  var href='mailto:'+CONTACT_EMAIL+'?subject='+encodeURIComponent('Demande de site · formule '+PLANS[S.f].nom)+'&body='+encodeURIComponent(body);
+  $('want').href=href; $('topContact').href=href;
+}
+
+/* ---------- Navigation entre les vues ---------- */
+function showSite(){
+  $('configView').hidden=true; $('siteView').hidden=false;
+  document.documentElement.setAttribute('data-theme','light');
+  renderBar(); renderSite(); window.scrollTo(0,0);
+}
+function showConfig(){
+  $('siteView').hidden=true; $('configView').hidden=false;
+  document.documentElement.removeAttribute('data-theme');
+  document.title='Démo · Votre site d\'artisan';
+  syncInputs(); renderConfig(); window.scrollTo(0,0);
+}
+function openDemo(){
+  var url=location.pathname+'?'+toQuery();
+  var standalone=/^https?:$/.test(location.protocol);
+  var embedded=true; try{embedded=window.top!==window.self;}catch(e){embedded=true;}
+  if(standalone && !embedded){
+    var w=window.open(url,'_blank');
+    if(w){ try{w.opener=null;}catch(e){} return; }
+  }
+  S.page='accueil'; S.devis={step:0,choix:null,delai:null};
+  showSite();
+}
+
+document.addEventListener('click',function(e){
+  var t=e.target.closest('button,a'); if(!t) return;
+  var inSite=!!t.closest('#site');
+  if(!inSite){
+    if(t.dataset.m){var old=M[S.m];S.m=t.dataset.m;if(!S.nom||S.nom===old.nom)S.nom=M[S.m].nom;S.c='';syncInputs();renderConfig();return;}
+    if(t.dataset.p){S.f=t.dataset.p;S.devis={step:0,choix:null,delai:null};
+      if(!$('siteView').hidden){renderBar();var y=window.scrollY;renderSite();window.scrollTo(0,Math.min(y,document.body.scrollHeight));}else renderConfig();return;}
+    if(t.dataset.c){S.c=t.dataset.c;renderBar();renderSite();return;}
+    return;
+  }
+  var h=t.getAttribute('href')||'';
+  if(t.tagName==='A' && (h.indexOf('tel:')===0 || h.indexOf('mailto:')===0 || h.indexOf('https://wa.me')===0)) return;
+  e.preventDefault();
+  if(t.dataset.page){S.page=t.dataset.page;renderSite();window.scrollTo(0,0);return;}
+  if(t.dataset.go){var c=document.getElementById('s-contact');if(c){c.scrollIntoView({behavior:'smooth',block:'start'});}else{S.page='contact';renderSite();window.scrollTo(0,0);}return;}
+  if(t.dataset.send){var o=t.innerHTML;t.textContent='Message envoyé (démo)';setTimeout(function(){t.innerHTML=o;},1500);return;}
+  function keep(){var y=window.scrollY;renderSite();window.scrollTo(0,y);}
+  if(t.dataset.choix){S.devis.choix=t.dataset.choix;keep();return;}
+  if(t.dataset.delai){S.devis.delai=t.dataset.delai;keep();return;}
+  if(t.dataset.next&&!t.disabled){S.devis.step=Math.min(3,S.devis.step+1);keep();return;}
+  if(t.dataset.prev){S.devis.step=Math.max(0,S.devis.step-1);keep();return;}
+  if(t.dataset.reset){S.devis={step:0,choix:null,delai:null};keep();return;}
+});
+FIELDS.forEach(function(k){$(k).addEventListener('input',function(){S[k]=this.value;renderConfig();});});
+$('go').addEventListener('click',openDemo);
+$('back').addEventListener('click',function(){
+  var isTab=false; try{isTab=new URLSearchParams(location.search).get('demo')==='1';}catch(e){}
+  if(isTab){ location.href=location.pathname+'?'+toQuery().replace('demo=1','demo=0'); return; }
+  showConfig();
+});
+$('hideBar').addEventListener('click',function(){$('demobar').hidden=true;document.body.classList.add('nobar');$('showBar').hidden=false;});
+$('showBar').addEventListener('click',function(){$('demobar').hidden=false;document.body.classList.remove('nobar');$('showBar').hidden=true;});
+
+var isDemo=fromQuery();
+syncInputs(); renderConfig();
+if(isDemo) showSite();
+})();
+</script>
+</body>
+</html>
