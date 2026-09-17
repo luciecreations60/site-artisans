@@ -5,50 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Voyez votre site avant de signer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Gabarito:wght@500;700;800&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
-  --c-bg:#FFFFFF; --c-ink:#15151A; --c-mute:#63636B; --c-line:#E4E4E7; --c-soft:#F4F4F5; --c-inv:#15151A; --c-on:#FFFFFF;
+  --c-bg:#FFFFFF; --c-ink:#15151A; --c-mute:#63636B; --c-line:#E4E4E7; --c-inv:#15151A; --c-on:#FFFFFF;
   --body:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   --brico:'Bricolage Grotesque','Instrument Sans',system-ui,sans-serif;
   --demobar:56px;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){--c-bg:#101014;--c-ink:#F4F4F5;--c-mute:#A1A1AA;--c-line:#2A2A31;--c-soft:#1A1A20;--c-inv:#F4F4F5;--c-on:#101014;}
-}
-:root[data-theme="dark"]{--c-bg:#101014;--c-ink:#F4F4F5;--c-mute:#A1A1AA;--c-line:#2A2A31;--c-soft:#1A1A20;--c-inv:#F4F4F5;--c-on:#101014;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--c-bg:#101014;--c-ink:#F4F4F5;--c-mute:#A1A1AA;--c-line:#2A2A31;--c-inv:#F4F4F5;--c-on:#101014;}}
+:root[data-theme="dark"]{--c-bg:#101014;--c-ink:#F4F4F5;--c-mute:#A1A1AA;--c-line:#2A2A31;--c-inv:#F4F4F5;--c-on:#101014;}
 *{box-sizing:border-box}
-html{-webkit-font-smoothing:antialiased}
-body{margin:0;background:var(--c-bg);color:var(--c-ink);font-family:var(--body);font-size:16px;line-height:1.5}
-button,input{font:inherit;color:inherit}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
+body{margin:0;background:var(--c-bg);color:var(--c-ink);font-family:var(--body);font-size:16px;line-height:1.55}
+button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 img{max-width:100%;display:block}
-:focus-visible{outline:3px solid #3B82F6;outline-offset:2px}
+:focus-visible{outline:3px solid #60A5FA;outline-offset:2px}
 [hidden]{display:none !important}
-@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none !important;transition:none !important}}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none !important;transition:none !important}}
+
+/* ---------- Photos (communes) ---------- */
+.pic{position:relative;overflow:hidden;background:linear-gradient(140deg,var(--f1,#3A4A55),var(--f2,#161C20))}
+.pic::before{content:"";position:absolute;inset:0;background:radial-gradient(90% 70% at 25% 20%,rgba(255,255,255,.14),transparent 60%)}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
 /* ================= CONFIGURATEUR ================= */
-.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(18px,4vw,48px)}
 .chead{display:flex;justify-content:space-between;align-items:center;height:76px}
 .cbrand{font-family:var(--brico);font-weight:800;font-size:22px;letter-spacing:-.03em}
-.chead a{color:var(--c-ink);font-weight:500;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
-.chero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(24px,5vw,64px) 0 clamp(40px,6vw,80px)}
-@media (max-width:980px){.chero{grid-template-columns:1fr}}
-.chero h1{font-family:var(--brico);font-weight:800;font-stretch:80%;font-size:clamp(52px,7.4vw,112px);line-height:.88;letter-spacing:-.045em;margin:0}
-.chero p{font-size:19px;color:var(--c-mute);max-width:420px;margin:28px 0 0}
-.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.tile{position:relative;overflow:hidden;border:none;border-radius:22px;min-height:230px;padding:22px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
-.tile:hover{transform:translateY(-3px)}
+.chead a{color:var(--c-ink);font-weight:500;text-underline-offset:4px}
+.chero{padding:clamp(20px,4vw,48px) 0 clamp(28px,4vw,48px);display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.chero h1{font-family:var(--brico);font-weight:800;font-stretch:80%;font-size:clamp(48px,7vw,104px);line-height:.9;letter-spacing:-.045em;margin:0;max-width:11ch}
+.chero p{font-size:19px;color:var(--c-mute);max-width:380px;margin:0}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:980px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tile{border:none;padding:0;border-radius:20px;aspect-ratio:3/4;text-align:left;color:#fff;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+@media (max-width:560px){.tile{aspect-ratio:4/5}}
+.tile:hover{transform:translateY(-4px)}
+.tile .pic{position:absolute;inset:0;border-radius:inherit}
+.tile .pic img{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.tile:hover .pic img{transform:scale(1.06)}
+.tile .shade{position:absolute;inset:0;border-radius:inherit;background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,0) 55%)}
+.tile .txt{position:absolute;left:18px;right:18px;bottom:18px;display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.tile .tt{font-size:30px;line-height:1}
+.tile .ts{font-size:14px;opacity:.85;margin-top:6px}
+.tile .check{width:34px;height:34px;border-radius:17px;background:#fff;color:#15151A;display:grid;place-items:center;flex-shrink:0;transform:scale(0);transition:transform .25s}
 .tile[aria-pressed="true"]{outline:3px solid var(--c-ink);outline-offset:4px}
-.tile .tt{position:relative;z-index:2;font-size:40px;line-height:.95}
-.tile .ts{position:relative;z-index:2;font-size:14px;opacity:.75;margin-top:6px}
-.tile .tn{position:relative;z-index:2;font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px}
-.tile .check{width:28px;height:28px;border-radius:14px;display:grid;place-items:center;opacity:0;transition:opacity .2s}
-.tile[aria-pressed="true"] .check{opacity:1}
-.tile svg.art{position:absolute;inset:auto 0 0 0;width:100%;height:60%;z-index:1}
-@media (max-width:560px){.tile{min-height:170px}.tile .tt{font-size:30px}}
+.tile[aria-pressed="true"] .check{transform:scale(1)}
+.tile{position:relative}
 
-.cform{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);padding:clamp(40px,6vw,72px) 0;border-top:1px solid var(--c-line)}
+.cform{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(24px,4vw,64px);padding:clamp(48px,6vw,80px) 0;margin-top:clamp(40px,5vw,64px);border-top:1px solid var(--c-line)}
 @media (max-width:980px){.cform{grid-template-columns:1fr}}
 .cform h2{font-family:var(--brico);font-weight:800;font-size:34px;letter-spacing:-.035em;margin:0 0 6px;line-height:1}
 .cform .lead{color:var(--c-mute);margin:0 0 24px}
@@ -57,7 +65,7 @@ img{max-width:100%;display:block}
 .field{display:flex;flex-direction:column;gap:4px}
 .field.full{grid-column:1/-1}
 .field label{font-size:14px;font-weight:500;color:var(--c-mute)}
-.field input{height:48px;border:none;border-bottom:2px solid var(--c-line);background:transparent;font-size:19px;padding:0;border-radius:0;transition:border-color .2s}
+.field input{height:48px;border:none;border-bottom:2px solid var(--c-line);background:transparent;font-size:19px;padding:0;border-radius:0}
 .field input:hover{border-color:var(--c-mute)}
 .field input:focus{outline:none;border-color:var(--c-ink)}
 .plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
@@ -66,250 +74,234 @@ img{max-width:100%;display:block}
 .plan:hover{border-color:var(--c-mute)}
 .plan[aria-pressed="true"]{background:var(--c-inv);color:var(--c-on);border-color:var(--c-inv)}
 .plan .pn{font-family:var(--brico);font-weight:800;font-size:30px;letter-spacing:-.03em;line-height:1}
-.plan .pp{font-size:15px;opacity:.7}
+.plan .pp{font-size:15px;opacity:.7;margin-top:4px}
+.plan .pd{font-size:15px;font-weight:500}
 .plan ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;font-size:14px}
 .plan li{display:flex;gap:8px;align-items:flex-start}
 .plan li svg{flex-shrink:0;margin-top:3px}
-.plan .pd{font-size:15px;font-weight:500}
 .launch{position:sticky;bottom:0;z-index:10;padding:14px 0 20px;background:linear-gradient(to top,var(--c-bg) 65%,transparent)}
 .launch-in{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--c-inv);color:var(--c-on);border-radius:22px;padding:12px 12px 12px 26px}
-.recap{font-size:15px}
 .recap strong{font-weight:600}
-.go{height:56px;padding:0 28px;border:none;border-radius:16px;font-weight:600;font-size:17px;background:var(--go,#3B82F6);color:var(--go-on,#fff);display:inline-flex;align-items:center;gap:10px;transition:transform .2s}
-.go:hover{transform:scale(1.02)}
+.go{height:56px;padding:0 28px;border:none;border-radius:16px;font-weight:600;font-size:17px;background:var(--c-on);color:var(--c-inv);display:inline-flex;align-items:center;gap:10px;transition:transform .2s}
+.go:hover{transform:scale(1.03)}
 
 /* ================= BARRE DÉMO ================= */
-.demobar{position:sticky;top:0;z-index:100;height:var(--demobar);background:#15151A;color:#fff;display:flex;align-items:center;gap:10px;padding:0 10px;font-size:14px}
+.demobar{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--demobar);background:#15151A;color:#fff;display:flex;align-items:center;gap:10px;padding:0 10px;font-size:14px}
 .demobar .grow{flex:1}
 .dbb{height:38px;padding:0 13px;border-radius:10px;border:1px solid #33333B;background:#1F1F25;color:#fff;display:inline-flex;align-items:center;gap:7px;font-weight:500;white-space:nowrap}
 .dbb:hover{background:#2A2A31}
 .dbseg{display:inline-flex;padding:3px;border-radius:11px;background:#1F1F25;border:1px solid #33333B}
 .dbseg button{height:30px;padding:0 13px;border:none;border-radius:8px;background:transparent;color:#A1A1AA;font-weight:500;font-size:14px}
 .dbseg button[aria-pressed="true"]{background:#fff;color:#15151A}
-.amb{display:inline-flex;gap:6px;align-items:center}
+.amb{display:inline-flex;gap:6px}
 .amb button{width:30px;height:30px;border-radius:15px;border:2px solid #15151A;padding:0;position:relative;overflow:hidden;box-shadow:0 0 0 1px #44444C}
 .amb button span{position:absolute;right:0;bottom:0;width:50%;height:50%}
 .amb button[aria-pressed="true"]{box-shadow:0 0 0 2px #fff}
 .dbcta{height:38px;padding:0 15px;border-radius:10px;background:#fff;color:#15151A;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;white-space:nowrap}
-.showbar{position:fixed;left:12px;top:12px;z-index:110;height:38px;padding:0 14px;border-radius:19px;border:none;background:#15151A;color:#fff;font-weight:500;font-size:13px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.showbar{position:fixed;left:12px;bottom:84px;z-index:210;height:40px;padding:0 16px;border-radius:20px;border:none;background:#15151A;color:#fff;font-weight:500;font-size:13px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
 body.nobar{--demobar:0px}
 @media (max-width:900px){.hsm{display:none !important}}
 
-/* ================= SITE GÉNÉRÉ ================= */
-.site{--bg:#EAF2F5;--ink:#0B2233;--acc:#0A5C8A;--on:#fff;--hi:#C47A3D;--fd:var(--brico);--rad:28px;
-  --soft:color-mix(in srgb,var(--ink) 6%,var(--bg));--line:color-mix(in srgb,var(--ink) 16%,var(--bg));--mute:color-mix(in srgb,var(--ink) 68%,var(--bg));
-  container-type:inline-size;background:var(--bg);color:var(--ink);font-family:var(--body);min-height:calc(100vh - var(--demobar));display:flex;flex-direction:column;overflow-x:clip}
+/* ================= SITE ================= */
+.site{--bg:#F5F8F9;--ink:#0B2233;--acc:#0A5C8A;--on:#fff;--hi:#C47A3D;--fd:var(--brico);
+  --soft:color-mix(in srgb,var(--ink) 5%,var(--bg));--line:color-mix(in srgb,var(--ink) 14%,var(--bg));--mute:color-mix(in srgb,var(--ink) 66%,var(--bg));
+  --f1:color-mix(in srgb,var(--acc) 60%,#1a1a1a);--f2:color-mix(in srgb,var(--ink) 85%,#000);
+  container-type:inline-size;background:var(--bg);color:var(--ink);font-family:var(--body);padding-top:var(--demobar);overflow-x:clip}
 .site a{color:inherit}
-.site .in{width:100%;max-width:1320px;margin:0 auto;padding:0 clamp(18px,4cqw,56px)}
-.site .disp{font-family:var(--fd)}
-.site[data-m="plombier"] .disp{font-weight:800;font-stretch:78%;letter-spacing:-.045em}
-.site[data-m="electricien"] .disp{font-weight:900;font-stretch:125%;letter-spacing:-.03em;text-transform:uppercase}
-.site[data-m="paysagiste"] .disp{font-weight:400;letter-spacing:-.02em}
-.site[data-m="jardinier"] .disp{font-weight:800;letter-spacing:-.035em}
+.site .in{width:100%;max-width:1320px;margin:0 auto;padding:0 clamp(20px,4cqw,56px)}
+.site .disp{font-family:var(--fd);font-weight:600;letter-spacing:-.02em}
+.site[data-m="plombier"] .disp{font-weight:800;font-stretch:80%;letter-spacing:-.04em}
+.site[data-m="electricien"] .disp{font-weight:800;font-stretch:118%;letter-spacing:-.025em}
+.site[data-m="paysagiste"] .disp{font-weight:400;letter-spacing:-.015em}
+.site[data-m="jardinier"] .disp{font-weight:800;letter-spacing:-.03em}
 
 /* nav */
-.site .nav{position:sticky;top:var(--demobar);z-index:40;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.site .nav .in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:76px}
-.site .logo{font-size:24px;line-height:1;text-decoration:none}
-.site[data-m="electricien"] .logo{font-size:18px}
-.site .links{display:flex;align-items:center;gap:4px}
-.site .links button{height:40px;padding:0 14px;border:none;background:transparent;border-radius:999px;font-weight:500;color:var(--ink)}
-.site .links button:hover{background:var(--soft)}
-.site .links button.cur{background:var(--ink);color:var(--bg)}
-.site .tel{height:46px;padding:0 20px;border-radius:999px;background:var(--acc);color:var(--on) !important;display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:none;margin-left:10px}
-.site[data-m="electricien"] .tel,.site[data-m="electricien"] .btn{border-radius:4px}
-.site .mnav{display:none}
+.site .nav{position:fixed;top:var(--demobar);left:0;right:0;z-index:100;color:#fff;transition:background .35s,color .35s,box-shadow .35s}
+.site .nav.solid{background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+.site .nav .in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:84px}
+.site .logo{font-size:26px;line-height:1;text-decoration:none;border:none;background:none;color:inherit;padding:0}
+.site .links{display:flex;align-items:center;gap:2px}
+.site .links button{height:42px;padding:0 14px;border:none;background:transparent;font-weight:500;color:inherit;position:relative}
+.site .links button::after{content:"";position:absolute;left:14px;right:14px;bottom:6px;height:2px;background:currentColor;transform:scaleX(0);transition:transform .3s;transform-origin:left}
+.site .links button:hover::after,.site .links button.cur::after{transform:scaleX(1)}
+.site .tel{height:46px;padding:0 20px;border-radius:999px;background:var(--acc);color:var(--on) !important;display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:none;margin-left:12px}
+.site .burger{display:none;width:46px;height:46px;border:none;background:transparent;color:inherit;place-items:center}
+.site .drawer{position:fixed;inset:var(--demobar) 0 0 0;z-index:150;background:var(--ink);color:var(--bg);padding:24px;display:flex;flex-direction:column;gap:4px}
+.site .drawer .close{align-self:flex-end;width:48px;height:48px;border:none;background:transparent;color:inherit;display:grid;place-items:center}
+.site .drawer button.it{border:none;background:none;color:inherit;text-align:left;font-size:34px;padding:10px 0}
+.site .drawer .tel{margin:18px 0 0;align-self:flex-start}
 
-/* hero */
-.site .hero{position:relative;overflow:hidden}
-.site .hero .in{position:relative;z-index:2}
-.site .h1{margin:0;line-height:.86}
-.site .lede{font-size:20px;line-height:1.45;max-width:30ch;margin:0;color:var(--mute)}
+/* hero diaporama */
+.site .hero{position:relative;height:calc(100svh - var(--demobar));min-height:600px;color:#fff;overflow:hidden;background:var(--f2)}
+.site .slide{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}
+.site .slide.on{opacity:1}
+.site .slide .pic{position:absolute;inset:0}
+.site .slide.on .pic img{animation:kb 9s ease-out both}
+@keyframes kb{from{transform:scale(1.12)}to{transform:scale(1)}}
+.site .hero .veil{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.25) 50%,rgba(0,0,0,.45) 100%)}
+.site .hero .in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(40px,6cqw,84px)}
+.site .rate{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;padding:9px 16px;border-radius:999px;background:rgba(255,255,255,.16);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:15px;margin-bottom:24px}
+.site .rate b{color:#FFD166;letter-spacing:2px}
+.site .h1{margin:0;font-size:clamp(50px,8.4cqw,132px);line-height:.92;max-width:14ch}
+.site[data-m="electricien"] .h1{font-size:clamp(40px,6.6cqw,104px)}
+.site .hero .row{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-top:28px}
+.site .hero .lede{margin:0;font-size:clamp(17px,1.6cqw,21px);max-width:44ch;opacity:.92}
 .site .btns{display:flex;gap:10px;flex-wrap:wrap}
-.site .btn{height:58px;padding:0 26px;border-radius:999px;font-weight:600;font-size:17px;display:inline-flex;align-items:center;gap:10px;border:none;text-decoration:none}
+.site .btn{height:58px;padding:0 28px;border-radius:999px;font-weight:600;font-size:17px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border:none;text-decoration:none;transition:transform .2s}
+.site .btn:hover{transform:translateY(-2px)}
 .site .btn.p{background:var(--acc);color:var(--on)}
+.site .btn.w{background:#fff;color:#111}
 .site .btn.s{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
-.site .btn[disabled]{opacity:.4;cursor:not-allowed}
+.site .btn[disabled]{opacity:.4;cursor:not-allowed;transform:none}
+.site[data-m="electricien"] .btn,.site[data-m="electricien"] .tel{border-radius:6px}
+.site .dots{position:absolute;right:clamp(20px,4cqw,56px);top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;gap:10px}
+.site .dots button{width:12px;height:12px;border-radius:6px;border:2px solid #fff;background:transparent;padding:0}
+.site .dots button.on{background:#fff}
 
-/* hero plombier */
-.site .hp{padding:clamp(40px,7cqw,96px) 0 clamp(170px,20cqw,260px)}
-.site .hp .grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:40px;align-items:end}
-.site .hp .h1{font-size:clamp(64px,12.5cqw,200px)}
-.site .hp .h1 span{display:block;color:var(--acc)}
-.site .hp .row{display:flex;gap:40px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;margin-top:36px}
-.site .badge{width:168px;height:168px;position:relative;flex-shrink:0}
-.site .badge svg{position:absolute;inset:0;animation:spin 24s linear infinite}
-.site .badge div{position:absolute;inset:26px;border-radius:50%;background:var(--hi);color:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
-.site .badge b{font-family:var(--fd);font-size:40px;font-weight:800}
-.site .badge small{font-size:13px;margin-top:4px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.site .pipe{position:absolute;left:0;right:0;bottom:0;width:100%;height:clamp(150px,20cqw,250px);z-index:1}
-.site .pipe .draw{stroke-dasharray:2400;stroke-dashoffset:2400;animation:draw 2.2s .2s cubic-bezier(.6,.1,.2,1) forwards}
-.site .pipe .drop{opacity:0;animation:drop .8s 2.2s ease-out forwards}
-@keyframes draw{to{stroke-dashoffset:0}}
-@keyframes drop{0%{opacity:0;transform:translateY(-14px)}100%{opacity:1;transform:none}}
+/* intro */
+.site .sec{padding:clamp(72px,10cqw,150px) 0}
+.site .intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,7cqw,120px);align-items:center}
+.site .h2{margin:0;font-size:clamp(40px,5.6cqw,84px);line-height:.98;max-width:15ch}
+.site[data-m="electricien"] .h2{font-size:clamp(32px,4.4cqw,64px)}
+.site .intro p{font-size:clamp(17px,1.5cqw,20px);color:var(--mute);max-width:52ch;margin:26px 0 30px}
+.site .collage{position:relative;aspect-ratio:1/1.05}
+.site .collage .a{position:absolute;left:0;top:0;width:74%;height:82%;border-radius:4px}
+.site .collage .b{position:absolute;right:0;bottom:0;width:52%;height:52%;border-radius:4px;box-shadow:0 0 0 clamp(8px,1.2cqw,14px) var(--bg)}
+.site[data-m="paysagiste"] .collage .a{border-radius:999px 999px 6px 6px}
+.site[data-m="jardinier"] .collage .a,.site[data-m="jardinier"] .collage .b{border-radius:28px}
+.site .since{position:absolute;left:6%;bottom:6%;background:var(--acc);color:var(--on);padding:18px 22px;line-height:1.05;z-index:2}
+.site .since b{display:block;font-family:var(--fd);font-size:clamp(30px,3.4cqw,48px)}
 
-/* hero électricien */
-.site .he{background-image:radial-gradient(color-mix(in srgb,var(--ink) 22%,transparent) 1.4px,transparent 1.6px);background-size:26px 26px;padding:clamp(40px,6cqw,80px) 0 clamp(40px,6cqw,80px)}
-.site .he .h1{font-size:clamp(32px,8.6cqw,150px);line-height:.88}
-.site .he .wire{display:block;width:100%;height:clamp(60px,9cqw,110px);margin:18px 0 30px}
-.site .he .wire path{stroke-dasharray:3000;stroke-dashoffset:3000;animation:draw 1.6s .15s cubic-bezier(.7,0,.2,1) forwards}
-.site .he .row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:32px;align-items:end}
-.site .sticker{background:var(--ink);color:var(--bg);padding:18px 22px;transform:rotate(-4deg);display:flex;gap:14px;align-items:center}
-.site .sticker b{font-family:var(--fd);font-size:44px;font-weight:900;font-stretch:125%;line-height:1}
-.site .sticker small{display:block;font-size:13px;opacity:.8}
+/* prestations */
+.site .sechead{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:clamp(32px,4cqw,56px)}
+.site .sechead p{margin:0;max-width:40ch;color:var(--mute);font-size:18px}
+.site .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6cqw,24px)}
+.site .card{position:relative;aspect-ratio:4/5;color:#fff;border:none;padding:0;text-align:left;background:none;overflow:hidden;border-radius:4px}
+.site[data-m="jardinier"] .card{border-radius:28px}
+.site[data-m="paysagiste"] .card{border-radius:999px 999px 4px 4px}
+.site .card .pic{position:absolute;inset:0}
+.site .card .pic img{transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.site .card:hover .pic img{transform:scale(1.07)}
+.site .card .shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,0) 60%)}
+.site .card .ct{position:absolute;left:clamp(18px,2cqw,28px);right:clamp(18px,2cqw,28px);bottom:clamp(18px,2cqw,28px)}
+.site .card h3{margin:0;font-size:clamp(26px,2.6cqw,38px);line-height:1}
+.site .card p{margin:10px 0 0;font-size:15px;opacity:.88;max-height:0;overflow:hidden;transition:max-height .5s}
+.site .card:hover p,.site .card:focus-visible p{max-height:120px}
+.site .card .more{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-weight:600;font-size:15px}
 
-/* hero paysagiste */
-.site .hl{padding:clamp(48px,7cqw,100px) 0 0;text-align:center}
-.site .hl .h1{font-size:clamp(62px,11cqw,178px);line-height:.9;max-width:14ch;margin:0 auto}
-.site .hl .lede{margin:26px auto 0;max-width:36ch}
-.site .hl .btns{justify-content:center;margin-top:30px}
-.site .hills{display:block;width:100%;height:clamp(200px,28cqw,380px);margin-top:clamp(20px,4cqw,48px)}
-.site .hills .h{transform-box:fill-box;animation:rise 1.4s cubic-bezier(.2,.8,.2,1) both}
-.site .hills .h2{animation-delay:.12s}.site .hills .h3{animation-delay:.24s}.site .hills .sun{animation:rise 1.6s .35s cubic-bezier(.2,.8,.2,1) both}
-@keyframes rise{from{transform:translateY(40%);opacity:0}to{transform:none;opacity:1}}
-.site .hl .rate{display:inline-flex;gap:10px;align-items:center;margin-bottom:22px;font-size:15px;padding:8px 16px;border-radius:999px;background:var(--soft)}
+/* bandeau engagements sur photo */
+.site .band{position:relative;color:#fff;background:var(--f2)}
+.site .band .pic{position:absolute;inset:0}
+.site .band .veil{position:absolute;inset:0;background:color-mix(in srgb,var(--ink) 78%,transparent)}
+.site .band .in{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;padding-top:clamp(56px,7cqw,100px);padding-bottom:clamp(56px,7cqw,100px)}
+.site .band .it{display:flex;flex-direction:column;gap:14px}
+.site .band svg{color:var(--hi)}
+.site .band b{font-family:var(--fd);font-size:clamp(22px,2.2cqw,30px);line-height:1.05}
+.site[data-m="electricien"] .band b{font-size:clamp(18px,1.7cqw,24px)}
+.site .band span{opacity:.8;font-size:15px}
 
-/* hero jardinier */
-.site .hj{padding:clamp(36px,5cqw,72px) 0 clamp(120px,14cqw,170px)}
-.site .hj .grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,4cqw,56px);align-items:center}
-.site .hj .h1{font-size:clamp(56px,9cqw,138px);line-height:.9}
-.site .hj .lede{margin:24px 0 30px}
-.site .hj .round{aspect-ratio:1;border-radius:50%;position:relative}
-.site .hj .round .ph{border-radius:50%;height:100%}
-.site .hj .sun{position:absolute;right:-6px;top:6%;width:30%;aspect-ratio:1;border-radius:50%;background:var(--hi);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;text-align:center}
-.site .hj .sun b{font-family:var(--fd);font-size:clamp(24px,3.4cqw,40px)}
-.site .hj .sun small{font-size:12px;margin-top:4px}
-.site .grass{position:absolute;left:0;right:0;bottom:-2px;width:100%;height:clamp(110px,13cqw,160px);z-index:1}
-.site .grass path{transform-box:fill-box;transform-origin:50% 100%;animation:sway 2.8s ease-out both}
-@keyframes sway{0%{transform:scaleY(0)}60%{transform:scaleY(1.06) rotate(3deg)}100%{transform:none}}
+/* galerie */
+.site .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.site .filters button{height:44px;padding:0 18px;border-radius:999px;border:none;box-shadow:inset 0 0 0 1.5px var(--line);background:transparent;color:var(--ink);font-weight:500}
+.site .filters button.on{background:var(--ink);color:var(--bg);box-shadow:none}
+.site .masonry{columns:3 280px;column-gap:clamp(10px,1.4cqw,20px)}
+.site .shot{display:block;width:100%;margin:0 0 clamp(10px,1.4cqw,20px);break-inside:avoid;border:none;padding:0;background:none;border-radius:4px;overflow:hidden;position:relative;cursor:zoom-in}
+.site[data-m="jardinier"] .shot{border-radius:20px}
+.site .shot .pic{position:relative;width:100%}
+.site .shot .pic img{transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.site .shot:hover .pic img{transform:scale(1.05)}
+.site .shot figcaption{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.55);color:#fff;font-size:13px;padding:5px 11px;border-radius:999px;opacity:0;transition:opacity .3s}
+.site .shot:hover figcaption{opacity:1}
+.site .gsimple{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(10px,1.4cqw,20px)}
+.site .gsimple .pic{aspect-ratio:4/5;border-radius:4px}
+.site .lightbox{position:fixed;inset:0;z-index:300;background:rgba(10,10,12,.94);display:flex;align-items:center;justify-content:center;padding:clamp(16px,4vw,64px)}
+.site .lightbox .pic{width:min(1100px,100%);aspect-ratio:3/2;max-height:82vh;border-radius:4px}
+.site .lightbox .pic img{object-fit:contain;background:#000}
+.site .lightbox .x{position:absolute;right:16px;top:16px;width:52px;height:52px;border-radius:26px;border:none;background:#fff;color:#111;display:grid;place-items:center}
+.site .lightbox .cap{position:absolute;left:0;right:0;bottom:18px;text-align:center;color:#fff;font-size:15px}
 
-/* photos */
-.site .ph{position:relative;overflow:hidden;border-radius:var(--rad);background:color-mix(in srgb,var(--acc) 22%,var(--bg))}
-.site .ph::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(-35deg,color-mix(in srgb,var(--acc) 14%,transparent) 0 1px,transparent 1px 12px)}
-.site .ph svg.mo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34%;max-width:120px;height:auto;color:color-mix(in srgb,var(--acc) 55%,var(--bg))}
-.site .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.site .ph figcaption{position:absolute;left:12px;bottom:12px;z-index:2;font-size:13px;font-weight:500;padding:5px 10px;border-radius:999px;background:var(--bg);color:var(--ink)}
-.site[data-m="electricien"] .ph{--rad:2px}
-.site[data-m="paysagiste"] .ph{--rad:200px 200px 24px 24px}
-
-/* engagements */
-.site .band{background:var(--ink);color:var(--bg)}
-.site .band .in{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
-.site .band .it{padding:34px 28px 34px 0;display:flex;gap:16px;align-items:flex-start}
-.site .band .it + .it{padding-left:28px;border-left:1px solid color-mix(in srgb,var(--bg) 20%,transparent)}
-.site .band b{display:block;font-size:19px;font-weight:600;margin-bottom:2px}
-.site .band span{font-size:15px;opacity:.72}
-.site .band svg{flex-shrink:0;color:var(--hi)}
-
-/* sections */
-.site .sec{padding:clamp(64px,10cqw,140px) 0}
-.site .h2{font-size:clamp(44px,7cqw,104px);line-height:.9;margin:0 0 clamp(32px,5cqw,64px);max-width:16ch}
-.site[data-m="electricien"] .h2{font-size:clamp(34px,5.4cqw,80px)}
-.site .svcs{border-top:2px solid var(--ink)}
-.site .svc{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto;gap:32px;align-items:center;padding:30px 0;border-bottom:1px solid var(--line);transition:padding .35s cubic-bezier(.2,.8,.2,1),background .35s}
-.site .svc:hover{padding-left:18px;padding-right:18px;background:var(--soft)}
-.site .svc h3{margin:0;font-size:clamp(28px,3.8cqw,52px);line-height:1}
-.site[data-m="electricien"] .svc h3{font-size:clamp(22px,2.6cqw,36px)}
-.site .svc p{margin:0;font-size:17px;color:var(--mute);max-width:40ch}
-.site .svc .ask{width:52px;height:52px;border-radius:50%;border:none;background:var(--acc);color:var(--on);display:grid;place-items:center}
-
-.site .gal{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-auto-rows:clamp(120px,14cqw,210px);gap:14px}
-.site .g1{grid-column:span 7;grid-row:span 3}.site .g2{grid-column:span 5;grid-row:span 2}.site .g3{grid-column:span 5;grid-row:span 1}
-.site .g4{grid-column:span 4;grid-row:span 2}.site .g5{grid-column:span 4;grid-row:span 2}.site .g6{grid-column:span 4;grid-row:span 2}
-.site .gs .ph{height:clamp(220px,26cqw,380px)}
-.site .gs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.site .ba{display:flex}
-.site .ba > div{flex:1;position:relative}
-.site .ba .bef{background:color-mix(in srgb,var(--ink) 18%,var(--bg))}
-.site .ba .knob{position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:var(--bg);z-index:3}
-.site .ba .knob i{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px;border-radius:50%;background:var(--bg);color:var(--ink);display:grid;place-items:center}
-.site .ba .l{position:absolute;top:14px;z-index:3;font-size:13px;font-weight:600;padding:5px 11px;border-radius:999px;background:var(--bg)}
-.site .vid{background:var(--ink);display:grid;place-items:center;color:var(--bg)}
-.site .vid::before{display:none}
-.site .vid i{width:76px;height:76px;border-radius:50%;background:var(--hi);display:grid;place-items:center;color:var(--ink)}
-
-.site .rv{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(32px,6cqw,96px);align-items:end}
-.site .quote{margin:0;font-size:clamp(30px,4.2cqw,58px);line-height:1.08;letter-spacing:-.02em}
-.site[data-m="electricien"] .quote{font-family:var(--body);text-transform:none;font-weight:500;font-stretch:100%}
-.site .qmeta{display:flex;align-items:center;gap:16px;margin-top:28px;flex-wrap:wrap}
-.site .qnav{display:flex;gap:8px;margin-left:auto}
-.site .qnav button{width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);background:transparent;display:grid;place-items:center;color:var(--ink)}
+/* avis */
+.site .reviews{background:var(--soft);text-align:center}
+.site .reviews .stars{color:var(--hi);font-size:24px;letter-spacing:4px}
+.site .quote{margin:22px auto 0;font-size:clamp(28px,3.6cqw,52px);line-height:1.15;max-width:26ch}
+.site[data-m="electricien"] .quote{font-family:var(--body);font-weight:500;font-stretch:100%;letter-spacing:-.01em;max-width:32ch}
+.site .who{margin-top:26px;font-weight:600}
+.site .demo{font-size:13px;color:var(--mute);font-weight:400}
+.site .qnav{display:flex;justify-content:center;align-items:center;gap:18px;margin-top:30px}
+.site .qnav button{width:54px;height:54px;border-radius:27px;border:none;box-shadow:inset 0 0 0 2px var(--ink);background:transparent;color:var(--ink);display:grid;place-items:center}
 .site .qnav button:hover{background:var(--ink);color:var(--bg)}
-.site .score{border-left:2px solid var(--ink);padding-left:clamp(20px,3cqw,40px)}
-.site .score .big{font-size:clamp(96px,15cqw,220px);line-height:.8}
-.site .stars{color:var(--hi);font-size:22px;letter-spacing:3px;margin:14px 0 6px}
-.site .demo{font-size:13px;color:var(--mute)}
-.site .srate{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);padding:28px 0}
-.site .srate .big{font-size:clamp(56px,8cqw,110px);line-height:.85}
+.site .gscore{display:inline-flex;align-items:center;gap:14px;margin-top:40px;padding:14px 22px;border-radius:999px;background:var(--bg);font-size:15px}
+.site .gscore b{font-family:var(--fd);font-size:28px;line-height:1}
 
-.site .dark{background:var(--ink);color:var(--bg)}
-.site .dark .mute{color:color-mix(in srgb,var(--bg) 70%,var(--ink))}
-.site .ct{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6cqw,96px);align-items:start}
-.site .ct .h2{margin-bottom:28px}
-.site .clines a,.site .clines div{display:flex;justify-content:space-between;gap:16px;padding:20px 0;border-top:1px solid color-mix(in srgb,var(--bg) 22%,transparent);font-size:clamp(18px,2cqw,24px);text-decoration:none}
-.site .clines span{font-size:15px;opacity:.7;align-self:center}
-.site .form{background:var(--bg);color:var(--ink);border-radius:var(--rad);padding:clamp(22px,3cqw,36px);display:flex;flex-direction:column;gap:16px}
-.site[data-m="electricien"] .form{border-radius:4px}
-.site .form h3{margin:0;font-size:clamp(28px,3cqw,40px);line-height:1}
+/* contact */
+.site .contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:760px;background:var(--ink);color:var(--bg)}
+.site .contact > .pic{min-height:420px}
+.site .contact .side{padding:clamp(40px,6cqw,96px) clamp(20px,5cqw,80px)}
+.site .contact .h2{color:var(--bg)}
+.site .clines{margin:28px 0 30px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 28px;font-size:16px}
+.site .clines small{display:block;opacity:.6;font-size:13px;margin-bottom:2px}
+.site .clines a{text-decoration:none;font-weight:600}
+.site .form{background:var(--bg);color:var(--ink);padding:clamp(22px,3cqw,34px);display:flex;flex-direction:column;gap:14px;border-radius:4px}
+.site[data-m="jardinier"] .form{border-radius:24px}
+.site .form h3{margin:0;font-size:clamp(26px,2.6cqw,36px);line-height:1}
 .site .fl label{display:block;font-size:14px;font-weight:500;color:var(--mute);margin-bottom:6px}
-.site .fl input,.site .fl textarea{width:100%;min-height:52px;border:2px solid var(--line);border-radius:14px;background:transparent;padding:12px 14px;font:inherit;font-size:17px;color:var(--ink)}
-.site .fl textarea{min-height:110px;resize:vertical}
+.site .fl input,.site .fl textarea{width:100%;min-height:52px;border:none;border-bottom:2px solid var(--line);background:transparent;padding:10px 0;font-size:17px;color:var(--ink);border-radius:0}
+.site .fl textarea{min-height:90px;resize:vertical}
 .site .fl input:focus,.site .fl textarea:focus{outline:none;border-color:var(--acc)}
-.site .form .btn{justify-content:center}
+.site .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .site .prog{display:flex;gap:6px}
-.site .prog i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.site .prog i{flex:1;height:4px;border-radius:2px;background:var(--line)}
 .site .prog i.on{background:var(--acc)}
 .site .opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.site .opt{min-height:64px;border-radius:14px;border:2px solid var(--line);background:transparent;font-weight:500;padding:8px 14px;text-align:left;color:var(--ink)}
+.site .opt{min-height:62px;border-radius:12px;border:2px solid var(--line);background:transparent;font-weight:500;padding:8px 14px;text-align:left;color:var(--ink)}
 .site .opt:hover{border-color:var(--mute)}
 .site .opt.sel{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--bg))}
-.site .done{text-align:center;padding:20px 0;display:flex;flex-direction:column;align-items:center;gap:10px}
+.site .done{text-align:center;padding:16px 0;display:flex;flex-direction:column;align-items:center;gap:10px}
 .site .done i{width:72px;height:72px;border-radius:50%;background:var(--acc);color:var(--on);display:grid;place-items:center}
-.site .wa{display:inline-flex;align-items:center;gap:10px;margin-top:22px;height:52px;padding:0 20px;border-radius:999px;background:var(--hi);color:var(--ink) !important;font-weight:600;text-decoration:none}
+.site .wa{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;height:50px;padding:0 20px;border-radius:999px;background:#25D366;color:#0B2A17 !important;font-weight:600;text-decoration:none}
 
-.site .map{border-radius:var(--rad);overflow:hidden;background:var(--soft)}
-.site .towns{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-.site .towns a{height:44px;padding:0 18px;border-radius:999px;box-shadow:inset 0 0 0 2px var(--ink);display:inline-flex;align-items:center;text-decoration:none;font-weight:500}
-.site .news{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,3cqw,40px)}
+/* zone + actus */
+.site .zone{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(32px,6cqw,96px);align-items:center}
+.site .towns{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.site .towns a{height:44px;padding:0 18px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--ink);display:inline-flex;align-items:center;text-decoration:none;font-weight:500}
+.site .map{aspect-ratio:4/3;background:var(--soft);border-radius:4px;overflow:hidden}
+.site .news{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2cqw,28px)}
 .site .news a{text-decoration:none}
-.site .news .ph{height:clamp(220px,28cqw,380px)}
-.site .news h3{font-size:clamp(24px,2.8cqw,38px);line-height:1.05;margin:18px 0 6px}
-.site[data-m="electricien"] .news h3{font-size:clamp(18px,2cqw,26px)}
+.site .news .pic{aspect-ratio:3/2;border-radius:4px}
+.site .news h3{margin:16px 0 6px;font-size:clamp(22px,2cqw,28px);line-height:1.1}
 
-.site footer{margin-top:auto;border-top:1px solid var(--line)}
-.site footer .in{display:flex;justify-content:space-between;gap:28px;flex-wrap:wrap;padding-top:40px;padding-bottom:40px}
-.site footer .logo{font-size:clamp(44px,8cqw,110px);line-height:.85}
-.site footer .cols{display:flex;gap:48px;font-size:15px;color:var(--mute)}
-.site footer b{display:block;color:var(--ink);font-weight:600;margin-bottom:4px}
+/* footer */
+.site footer{background:color-mix(in srgb,var(--ink) 94%,#000);color:var(--bg)}
+.site footer .in{padding-top:clamp(56px,6cqw,88px);padding-bottom:36px}
+.site footer .top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+.site footer .logo{font-size:clamp(34px,3.6cqw,52px)}
+.site footer h4{margin:0 0 12px;font-size:14px;font-weight:600;opacity:.6}
+.site footer p,.site footer li{margin:0;font-size:15px;line-height:1.8;opacity:.9}
+.site footer ul{list-style:none;margin:0;padding:0}
+.site footer .bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:56px;padding-top:22px;border-top:1px solid color-mix(in srgb,var(--bg) 16%,transparent);font-size:13px;opacity:.6}
 .site .sticky{display:none}
 
-@container (max-width:780px){
-  .site .nav .in{height:64px}
+@container (max-width:860px){
   .site .links{display:none}
-  .site .mnav{display:flex;gap:8px;overflow-x:auto;padding:0 18px 12px;scrollbar-width:none}
-  .site .mnav button{flex-shrink:0;height:38px;padding:0 15px;border-radius:999px;border:none;box-shadow:inset 0 0 0 1.5px var(--line);background:transparent;font-weight:500;color:var(--ink)}
-  .site .mnav button.cur{background:var(--ink);color:var(--bg);box-shadow:none}
-  .site .hp .grid,.site .hj .grid,.site .he .row,.site .rv,.site .ct,.site .news{grid-template-columns:1fr}
-  .site .badge{width:130px;height:130px}.site .badge b{font-size:30px}
-  .site .he .row{gap:22px}
-  .site .sticker{justify-self:start}
-  .site .hj .round{max-width:360px;width:100%;margin:0 auto}
-  .site .band .in{grid-template-columns:1fr}
-  .site .band .it{padding:22px 0}
-  .site .band .it + .it{padding-left:0;border-left:none;border-top:1px solid color-mix(in srgb,var(--bg) 20%,transparent)}
-  .site .svc{grid-template-columns:minmax(0,1fr) auto;gap:10px 16px}
-  .site .svc p{grid-column:1;grid-row:2}
-  .site .svc .ask{grid-row:1/3;grid-column:2}
-  .site .svc:hover{padding-left:0;padding-right:0;background:transparent}
-  .site .gal{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px}
-  .site .g1{grid-column:span 2;grid-row:span 2}.site .g2,.site .g3,.site .g4,.site .g5,.site .g6{grid-column:span 1;grid-row:span 1}
-  .site .gs{grid-template-columns:1fr 1fr}.site .gs .ph{height:180px}.site .gs .ph:first-child{grid-column:span 2}
-  .site .score{border-left:none;padding-left:0;border-top:2px solid var(--ink);padding-top:22px}
-  .site .opts{grid-template-columns:1fr}
+  .site .burger{display:grid}
+  .site .nav .in{height:68px}
+  .site .intro,.site .contact,.site .zone{grid-template-columns:1fr}
+  .site .collage{max-width:520px}
+  .site .cards,.site .news{grid-template-columns:1fr}
+  .site .card{aspect-ratio:5/4}
+  .site[data-m="paysagiste"] .card{border-radius:4px}
+  .site .card p{max-height:120px}
+  .site .band .in{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 20px}
+  .site .gsimple{grid-template-columns:1fr 1fr}
+  .site .gsimple .pic:first-child{grid-column:span 2;aspect-ratio:4/3}
+  .site .masonry{columns:2 140px}
+  .site .dots{top:auto;bottom:24px;right:20px;flex-direction:row;transform:none}
+  .site .contact > .pic{min-height:280px}
+  .site .clines{grid-template-columns:1fr}
+  .site .opts,.site .two{grid-template-columns:1fr}
+  .site footer .top{grid-template-columns:1fr 1fr}
   .site footer .in{padding-bottom:110px}
-  .site footer .cols{gap:28px;flex-wrap:wrap}
-  .site .sticky{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 12px 14px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .site .sticky{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:90;padding:10px 12px 14px;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 -1px 0 var(--line)}
   .site .sticky a,.site .sticky button{height:54px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;border:none;text-decoration:none;font-size:16px}
 }
 </style>
@@ -323,14 +315,11 @@ body.nobar{--demobar:0px}
       <div class="cbrand">[Votre marque]</div>
       <a id="topContact" href="#">Nous écrire</a>
     </header>
-
     <section class="chero">
-      <div>
-        <h1>Voyez votre site avant de signer.</h1>
-        <p>Choisissez votre métier, entrez le nom de votre entreprise, et découvrez votre futur site en plein écran.</p>
-      </div>
-      <div class="tiles" id="tiles" role="group" aria-label="Votre métier"></div>
+      <h1>Voyez votre site avant de signer.</h1>
+      <p>Choisissez votre métier, entrez le nom de votre entreprise et découvrez votre futur site en plein écran.</p>
     </section>
+    <div class="tiles" id="tiles" role="group" aria-label="Votre métier"></div>
 
     <section class="cform">
       <div>
@@ -352,14 +341,12 @@ body.nobar{--demobar:0px}
       </div>
     </section>
 
-    <div class="launch">
-      <div class="launch-in">
-        <div class="recap" id="recap"></div>
-        <button class="go" id="go">Voir mon site
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
-        </button>
-      </div>
-    </div>
+    <div class="launch"><div class="launch-in">
+      <div class="recap" id="recap"></div>
+      <button class="go" id="go">Voir mon site
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"/><path d="M8 7h9v9"/></svg>
+      </button>
+    </div></div>
   </div>
 </div>
 
@@ -374,7 +361,7 @@ body.nobar{--demobar:0px}
     <div class="amb hsm" id="dbAmb" role="group" aria-label="Ambiance"></div>
     <div class="grow"></div>
     <a class="dbcta hsm" id="want" href="#">Je veux ce site</a>
-    <button class="dbb" id="hideBar" aria-label="Masquer la barre">
+    <button class="dbb" id="hideBar" aria-label="Masquer la barre de démo">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
     </button>
   </div>
@@ -388,74 +375,76 @@ body.nobar{--demobar:0px}
 
 /* ================= RÉGLAGES ================= */
 var CONTACT_EMAIL='contact@votre-domaine.fr';
-/* Déposez vos photos dans un dossier img/ : img/plombier-1.jpg … img/plombier-6.jpg (idem pour chaque métier). Sans photo, un motif s'affiche. */
-var PHOTO_DIR='img/';
+/* Photos d'illustration libres de droits (Unsplash, licence gratuite). Remplacez l'identifiant par un autre, ou par l'URL complète d'une photo à vous. */
+function IMG(id,w){ if(/^https?:|^img\//.test(id)) return id; return 'https://images.unsplash.com/photo-'+id+'?auto=format&fit=crop&w='+(w||1600)+'&q=72'; }
+
 var PLANS={
   simple:{nom:'Simple',prix:'[Prix]',desc:'Être trouvé et appelé',li:['Site une page','Appel en un geste','Formulaire de contact','Vos photos modifiables']},
-  plus:{nom:'Plus',prix:'[Prix]',desc:'Rassurer et convaincre',li:['Site de 5 pages','Avis Google automatiques','Galerie avant / après','Textes et vidéos modifiables']},
+  plus:{nom:'Plus',prix:'[Prix]',desc:'Rassurer et convaincre',li:['Site de 5 pages','Avis Google automatiques','Galerie de réalisations','Textes et vidéos modifiables']},
   pro:{nom:'Pro',prix:'[Prix]',desc:'Recevoir des demandes',li:['Devis en ligne guidé','Une page par commune','Bouton WhatsApp','Actualités et conseils']}
 };
 
 var I={
   phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
-  up:'<path d="M7 17L17 7"/><path d="M8 7h9v9"/>',
-  check:'<path d="M20 6L9 17l-5-5"/>',
-  left:'<path d="M15 18l-6-6 6-6"/>', right:'<path d="M9 18l6-6-6-6"/>',
-  lr:'<path d="M9 7l-5 5 5 5"/><path d="M15 7l5 5-5 5"/>',
-  play:'<path d="M8 5l11 7-11 7z" fill="currentColor"/>',
+  up:'<path d="M7 17L17 7"/><path d="M8 7h9v9"/>', check:'<path d="M20 6L9 17l-5-5"/>',
+  left:'<path d="M15 18l-6-6 6-6"/>', right:'<path d="M9 18l6-6-6-6"/>', x:'<path d="M18 6L6 18"/><path d="M6 6l12 12"/>',
+  menu:'<path d="M4 8h16"/><path d="M4 16h16"/>',
   shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>',
   doc:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 14h6"/><path d="M9 18h4"/>',
-  broom:'<path d="M19 3l-7 7"/><path d="M8 11l5 5-3 6-7-7z"/><path d="M4 21l3-3"/>',
   clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  pin:'<path d="M12 22s7-6 7-12a7 7 0 0 0-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
+  broom:'<path d="M19 3l-7 7"/><path d="M8 11l5 5-3 6-7-7z"/><path d="M4 21l3-3"/>',
+  bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>', leaf:'<path d="M11 20A7 7 0 0 1 4 13c0-6 7-10 16-10 0 9-4 16-10 16"/><path d="M4 21c4-6 8-9 12-11"/>',
+  sprout:'<path d="M12 22V12"/><path d="M12 12C12 7 8 4 3 4c0 5 4 8 9 8z"/><path d="M12 14c0-4 3-7 9-7 0 4-3 7-9 7z"/>',
   chat:'<path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l2.1-5.6A8.4 8.4 0 1 1 21 11.5z"/>',
-  camera:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
-  drop:'<path d="M12 2.7s6 6.6 6 11.3a6 6 0 0 1-12 0c0-4.7 6-11.3 6-11.3z"/>',
-  bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
-  leaf:'<path d="M11 20A7 7 0 0 1 4 13c0-6 7-10 16-10 0 9-4 16-10 16"/><path d="M4 21c4-6 8-9 12-11"/>',
-  sprout:'<path d="M12 22V12"/><path d="M12 12C12 7 8 4 3 4c0 5 4 8 9 8z"/><path d="M12 14c0-4 3-7 9-7 0 4-3 7-9 7z"/>'
+  camera:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>'
 };
 function ic(n,s,w){return '<svg width="'+(s||18)+'" height="'+(s||18)+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+(w||2)+'" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+I[n]+'</svg>';}
 
 var M={
-  plombier:{label:'Plombier',sub:'Chauffagiste',icon:'drop',fd:"'Bricolage Grotesque','Instrument Sans',sans-serif",nom:'Martin Plomberie',mot:'plombier',
-    pal:[{n:'Eau profonde',bg:'#EAF2F5',ink:'#0B2233',acc:'#0A5C8A',on:'#FFFFFF',hi:'#C47A3D'},{n:'Cuivre',bg:'#F3ECE4',ink:'#2A1A10',acc:'#9C4F1C',on:'#FFFFFF',hi:'#0A5C8A'},{n:'Nuit',bg:'#0B2233',ink:'#EAF2F5',acc:'#58B7E0',on:'#0B2233',hi:'#E09A5E'}],
-    h:['Plombier','à {ville}.'],lede:'Fuites, chauffe-eau, salles de bain. On arrive vite, on explique tout, on repart en laissant propre.',
-    eng:[['clock','Dépannage 7j/7','Une fuite ne prévient pas.'],['doc','Devis détaillé','Le prix annoncé est le prix payé.'],['shield','Garantie décennale','Chaque installation est assurée.']],
-    services:[['Fuites et dépannages','WC bouchés, robinetterie, canalisations : on trouve la cause et on répare.'],['Salles de bain','De la dépose à la dernière joint : douche à l\'italienne, meubles, raccordements.'],['Chauffe-eau et chaudières','Remplacement, entretien annuel et mise en service.']],
-    photos:['Douche à l\'italienne','Chauffe-eau','Nourrice cuivre','Cuisine raccordée','Salle de bain','Réseau neuf'],
-    avis:[['Venu le jour même pour une fuite sous l\'évier. Tout expliqué, prix respecté.','Sophie L.'],['Salle de bain refaite en dix jours, chantier nettoyé chaque soir. On ne voit plus que le résultat.','Marc D.'],['Chauffe-eau changé un samedi matin. Réactif et très correct.','Nadia B.']],
+  plombier:{label:'Plombier',sub:'Chauffagiste',fd:"'Bricolage Grotesque','Instrument Sans',sans-serif",nom:'Martin Plomberie',mot:'plombier',depuis:'2009',
+    pal:[{n:'Eau profonde',bg:'#F4F8FA',ink:'#0B2233',acc:'#0A5C8A',on:'#FFFFFF',hi:'#E0A35E'},{n:'Cuivre',bg:'#F7F1EB',ink:'#2A1A10',acc:'#9C4F1C',on:'#FFFFFF',hi:'#E0A35E'},{n:'Ardoise',bg:'#F3F4F6',ink:'#111827',acc:'#1F2937',on:'#FFFFFF',hi:'#60A5FA'}],
+    h:'Votre plombier à {ville}, rapide et soigneux.',lede:'Fuites, chauffe-eau, salles de bain : on arrive vite, on explique tout, on repart en laissant propre.',
+    intro:['Un artisan qui répond, et qui revient si besoin.','Depuis plus de quinze ans, nous dépannons et installons chez les particuliers de {ville} et des alentours. Un seul interlocuteur, un devis clair, et un chantier rendu propre.'],
+    eng:[['clock','Dépannage 7j/7','Une fuite ne prévient pas.'],['doc','Devis détaillé','Le prix annoncé est le prix payé.'],['shield','Garantie décennale','Chaque installation est assurée.'],['broom','Chantier propre','Protégé pendant, nettoyé après.']],
+    services:[['Fuites et dépannages','Canalisations, robinetterie, WC : on trouve la cause et on répare.',6],['Salles de bain','Douche à l\'italienne, meubles, raccordements, de la dépose à la finition.',1],['Chauffe-eau et chaudières','Remplacement, entretien annuel et mise en service.',3]],
+    photos:[['1676210134188-4c05dd172f89','Intervention sur une canalisation',0],['1749532125405-70950966b0e5','Réparation en salle de bain',1],['1596394723269-b2cbca4e6313','Raccord en laiton',0],['1676210134190-3f2c0d5cf58d','Chauffe-eau',2],['1542013936693-884638332954','Robinetterie',1],['1530124566582-a618bc2615dc','Outillage',0],['1676210133055-eab6ef033ce3','Raccordement sous évier',0],['1521207418485-99c705420785','Évier de cuisine',1]],
+    avis:[['Venu le jour même pour une fuite sous l\'évier. Tout expliqué, prix respecté.','Sophie L.'],['Salle de bain refaite en dix jours, chantier nettoyé chaque soir.','Marc D.'],['Chauffe-eau changé un samedi matin. Réactif et très correct.','Nadia B.']],
     opts:['Fuite ou dépannage','Salle de bain','Chauffe-eau','Autre projet'],
-    news:['Éviter le gel des canalisations cet hiver','Chauffe-eau : les signes qu\'il faut le remplacer']},
-  electricien:{label:'Électricien',sub:'Dépannage et rénovation',icon:'bolt',fd:"'Archivo','Instrument Sans',sans-serif",nom:'Lefèvre Élec',mot:'électricien',
-    pal:[{n:'Signal',bg:'#FFD60A',ink:'#141414',acc:'#141414',on:'#FFD60A',hi:'#FFFFFF'},{n:'Bleu tension',bg:'#E8ECFF',ink:'#0E1440',acc:'#2B3BFF',on:'#FFFFFF',hi:'#FFD60A'},{n:'Graphite',bg:'#1C1C1E',ink:'#F2F2F2',acc:'#FFD60A',on:'#141414',hi:'#FFD60A'}],
-    h:['Électricien','à {ville}'],lede:'Tableaux, mises aux normes, pannes et bornes de recharge. Une installation sûre, expliquée simplement.',
-    eng:[['bolt','Intervention rapide','Panne ou disjoncteur qui saute.'],['shield','Installations aux normes','Sécurité vérifiée à chaque chantier.'],['doc','Devis clair','Chaque poste détaillé avant travaux.']],
-    services:[['Mise aux normes','Tableau électrique, prises, mise à la terre : un logement en sécurité.'],['Dépannage','Court-circuit, panne générale, disjoncteur : diagnostic et réparation.'],['Bornes de recharge','Installation pour véhicule électrique, pilotage et domotique.']],
-    photos:['Tableau neuf','Borne de recharge','Éclairage','Rénovation','Prises extérieures','Domotique'],
+    news:[['Éviter le gel des canalisations cet hiver',2],['Chauffe-eau : les signes qu\'il faut le remplacer',3],['Entretenir sa robinetterie en cinq minutes',4]]},
+  electricien:{label:'Électricien',sub:'Dépannage et rénovation',fd:"'Archivo','Instrument Sans',sans-serif",nom:'Lefèvre Électricité',mot:'électricien',depuis:'2012',
+    pal:[{n:'Signal',bg:'#F7F7F5',ink:'#141414',acc:'#F5C400',on:'#141414',hi:'#F5C400'},{n:'Bleu tension',bg:'#F4F6FF',ink:'#0E1440',acc:'#2B3BFF',on:'#FFFFFF',hi:'#FFD60A'},{n:'Graphite',bg:'#F4F4F5',ink:'#18181B',acc:'#E4572E',on:'#FFFFFF',hi:'#F59E0B'}],
+    h:'Électricien à {ville}. Sûr, net, expliqué.',lede:'Tableaux, mises aux normes, pannes, éclairage et bornes de recharge pour particuliers et professionnels.',
+    intro:['Une installation que vous comprenez.','Nous remettons en sécurité les logements de {ville} et des environs, du simple dépannage à la rénovation complète. Chaque circuit est testé, étiqueté et expliqué.'],
+    eng:[['bolt','Intervention rapide','Panne ou disjoncteur qui saute.'],['shield','Aux normes','Sécurité vérifiée à chaque chantier.'],['doc','Devis clair','Chaque poste détaillé avant travaux.'],['clock','Rendez-vous tenus','On arrive à l\'heure annoncée.']],
+    services:[['Mise aux normes','Tableau électrique, prises, mise à la terre : un logement en sécurité.',4],['Dépannage','Court-circuit, panne générale : diagnostic et réparation.',3],['Éclairage et bornes','Éclairage intérieur et extérieur, bornes pour véhicule électrique.',2]],
+    photos:[['1621905251189-08b45d6a269e','Pose de câblage',0],['1660330589693-99889d60181e','Intervention sur un tableau',0],['1473308822086-710304d7d30c','Éclairage',2],['1758101755915-462eddc23f57','Contrôle au multimètre',1],['1544724569-5f546fd6f2b5','Tableau et disjoncteurs',0],['1507494924047-60b8ee826ca9','Ampoules décoratives',2],['1682345262055-8f95f3c513ea','Raccordement de fils',1],['1635335874521-7987db781153','Boîte de dérivation',1]],
     avis:[['Tableau refait proprement, tout étiqueté et expliqué. On sait enfin à quoi sert chaque disjoncteur.','Julien R.'],['Borne installée en une matinée, dossier d\'aide géré avec nous.','Claire M.'],['Panne générale un dimanche, courant rétabli dans l\'heure.','Hugo T.']],
-    opts:['Panne ou dépannage','Mise aux normes','Borne de recharge','Autre projet'],
-    news:['Borne de recharge : les étapes pour l\'installer','Cinq signes que votre tableau doit être changé']},
-  paysagiste:{label:'Paysagiste',sub:'Création de jardins',icon:'leaf',fd:"'Instrument Serif',Georgia,serif",nom:'Jardins Duval',mot:'paysagiste',
-    pal:[{n:'Mousse',bg:'#E3E9D8',ink:'#1D2E1F',acc:'#2F5A36',on:'#FFFFFF',hi:'#D9A441'},{n:'Pierre',bg:'#E9E4DC',ink:'#2B2926',acc:'#56643F',on:'#FFFFFF',hi:'#B07152'},{n:'Forêt',bg:'#16261A',ink:'#E8EDDF',acc:'#A9C58B',on:'#16261A',hi:'#E3B45A'}],
-    h:['Des jardins qui','vous ressemblent.'],lede:'Paysagiste à {ville}. Nous dessinons, plantons et construisons l\'extérieur dont vous rêvez.',
-    eng:[['leaf','Étude sur place','Offerte, avec un plan de votre futur jardin.'],['sprout','Végétaux adaptés','Choisis pour votre sol et votre climat.'],['shield','Garantie de reprise','Les plantations sont suivies.']],
-    services:[['Création de jardins','Plans, choix des végétaux et réalisation complète.'],['Terrasses et allées','Bois, pierre, pavés : des matières qui vieillissent bien.'],['Plantations','Haies, massifs, arbres, gazon et arrosage automatique.']],
-    photos:['Terrasse en bois','Jardin de ville','Allée pavée','Massif fleuri','Bassin','Haie champêtre'],
+    opts:['Panne ou dépannage','Mise aux normes','Éclairage ou borne','Autre projet'],
+    news:[['Borne de recharge : les étapes pour l\'installer',2],['Cinq signes que votre tableau doit être changé',4],['Bien choisir son éclairage extérieur',5]]},
+  paysagiste:{label:'Paysagiste',sub:'Création de jardins',fd:"'Instrument Serif',Georgia,serif",nom:'Jardins Duval',mot:'paysagiste',depuis:'2006',
+    pal:[{n:'Mousse',bg:'#F4F3EE',ink:'#1D2E1F',acc:'#2F5A36',on:'#FFFFFF',hi:'#D9A441'},{n:'Pierre',bg:'#F5F2ED',ink:'#2B2926',acc:'#6B5B45',on:'#FFFFFF',hi:'#C08457'},{n:'Sauge',bg:'#F2F5F1',ink:'#1F2A24',acc:'#5F7F68',on:'#FFFFFF',hi:'#E3B45A'}],
+    h:'Des jardins qui vous ressemblent.',lede:'Paysagiste à {ville}. Nous dessinons, plantons et construisons l\'extérieur dont vous rêvez.',
+    intro:['Chaque jardin commence par une conversation.','Nous prenons le temps de comprendre votre terrain, votre façon de vivre dehors et vos envies. Puis nous dessinons un projet, choisissons les végétaux et réalisons tout, de la terrasse au dernier massif.'],
+    eng:[['leaf','Étude offerte','Visite et plan de votre futur jardin.'],['sprout','Végétaux adaptés','Choisis pour votre sol et votre climat.'],['shield','Garantie de reprise','Les plantations sont suivies.'],['clock','Délais tenus','Un planning annoncé et respecté.']],
+    services:[['Création de jardins','Plans, choix des végétaux et réalisation complète.',0],['Terrasses et allées','Bois, pierre, pavés : des matières qui vieillissent bien.',2],['Plantations','Haies, massifs, arbres, gazon et arrosage.',4]],
+    photos:[['1597201278257-3687be27d954','Massifs fleuris',0],['1663185777390-d44a6f4724b9','Allée de jardin',1],['1617850687395-620757feb1f3','Terrasse en bois',1],['1700689807667-82630348b301','Chemin en briques',1],['1632161293871-cf2083474e34','Jardin de vivaces',2],['1686663048931-6df69f577a2f','Jardin arboré',0],['1734079692087-91bac04efcd1','Pose de bordures',1],['1734079692079-aae7e24a7035','Pose de gazon',2]],
     avis:[['Notre jardin est méconnaissable. Le plan dessiné au départ correspond exactement au résultat.','Anne et Paul G.'],['Terrasse superbe, équipe agréable, délais tenus.','Karim S.'],['Quelques plantes n\'ont pas repris : remplacées sans discuter.','Élise V.']],
     opts:['Création de jardin','Terrasse ou allée','Plantations','Autre projet'],
-    news:['Un jardin sans arrosage : quelles plantes choisir','Terrasse bois ou pierre : comment choisir']},
-  jardinier:{label:'Jardinier',sub:'Entretien de jardins',icon:'sprout',fd:"'Gabarito','Instrument Sans',sans-serif",nom:'Au Jardin Net',mot:'jardinier',
-    pal:[{n:'Gazon',bg:'#F1F7E6',ink:'#1C2B12',acc:'#3F7F26',on:'#FFFFFF',hi:'#F2C94C'},{n:'Menthe',bg:'#E1F3EC',ink:'#0F2A22',acc:'#0F735A',on:'#FFFFFF',hi:'#FF9466'},{n:'Potager',bg:'#FFF1DA',ink:'#2B2111',acc:'#B24D1B',on:'#FFFFFF',hi:'#6FA83B'}],
-    h:['Votre jardin,','sans y penser.'],lede:'Jardinier à {ville}. Tonte, haies, entretien régulier : vous profitez, on s\'occupe du reste.',
-    eng:[['clock','Passages réguliers','À la fréquence qui vous convient.'],['broom','Déchets évacués','Rien ne reste derrière nous.'],['doc','[Crédit d\'impôt]','Si agréé services à la personne.']],
-    services:[['Tonte et haies','Pelouse nette et haies taillées au cordeau, toute l\'année.'],['Entretien régulier','Avec ou sans contrat, un jardinier qui connaît votre jardin.'],['Débroussaillage','Remise en état de terrains laissés à l\'abandon.']],
-    photos:['Haie taillée','Pelouse','Terrain débroussaillé','Massifs','Arbustes','Feuilles ramassées'],
+    news:[['Un jardin sans arrosage : quelles plantes choisir',4],['Terrasse bois ou pierre : comment choisir',2],['Les vivaces qui fleurissent tout l\'été',0]]},
+  jardinier:{label:'Jardinier',sub:'Entretien de jardins',fd:"'Gabarito','Instrument Sans',sans-serif",nom:'Au Jardin Net',mot:'jardinier',depuis:'2015',
+    pal:[{n:'Gazon',bg:'#F5F9EF',ink:'#1C2B12',acc:'#3F7F26',on:'#FFFFFF',hi:'#F2C94C'},{n:'Menthe',bg:'#EFF7F3',ink:'#0F2A22',acc:'#0F735A',on:'#FFFFFF',hi:'#FF9466'},{n:'Potager',bg:'#FFF7EA',ink:'#2B2111',acc:'#B24D1B',on:'#FFFFFF',hi:'#8BBF4A'}],
+    h:'Votre jardin, sans y penser.',lede:'Jardinier à {ville}. Tonte, haies, entretien régulier : vous profitez, on s\'occupe du reste.',
+    intro:['Le même jardinier, à chaque passage.','Nous entretenons les jardins de {ville} et des alentours toute l\'année. Vous choisissez la fréquence, nous connaissons votre jardin et repartons avec les déchets verts.'],
+    eng:[['clock','Passages réguliers','À la fréquence qui vous convient.'],['broom','Déchets évacués','Rien ne reste derrière nous.'],['doc','[Crédit d\'impôt]','Si agréé services à la personne.'],['sprout','Conseils de saison','Tailles et soins au bon moment.']],
+    services:[['Tonte et haies','Pelouse nette et haies taillées au cordeau, toute l\'année.',1],['Entretien régulier','Avec ou sans contrat, un jardinier qui connaît votre jardin.',0],['Débroussaillage','Remise en état de terrains laissés à l\'abandon.',3]],
+    photos:[['1668120089662-42642838cfef','Pelouse entretenue',1],['1734303023491-db8037a21f09','Tonte',0],['1689728318937-17d24bc0a65c','Finitions au coupe-bordure',0],['1734079692160-fcbe4be6ab96','Évacuation des déchets',2],['1458245201577-fc8a130b8829','Tondeuse',0],['1605117882932-f9e32b03fea9','Travaux de terrain',2],['1734079692079-172d8243ebd3','Élagage',2],['1734079692079-aae7e24a7035','Regarnissage de gazon',1]],
     avis:[['Passage tous les quinze jours, toujours à l\'heure. Le jardin n\'a jamais été aussi beau.','Monique F.'],['Trente mètres de haie taillés au cordeau, et tout est reparti dans le camion.','Bruno L.'],['Sérieux et à l\'écoute, prévient quand la météo décale un passage.','Inès K.']],
     opts:['Tonte ou haies','Entretien régulier','Débroussaillage','Autre besoin'],
-    news:['Quand tailler ses haies : le calendrier simple','Préparer son jardin pour l\'automne']}
+    news:[['Quand tailler ses haies : le calendrier simple',2],['Préparer son jardin pour l\'automne',3],['Une pelouse dense sans produits chimiques',0]]}
 };
 
-var S={m:'plombier',nom:M.plombier.nom,ville:'Chantilly',tel:'06 12 34 56 78',email:'contact@exemple.fr',note:'4,9',nb:'48',a:0,f:'plus',page:'accueil',q:0,devis:{step:0,choix:null,delai:null}};
+var S={m:'plombier',nom:M.plombier.nom,ville:'Chantilly',tel:'06 12 34 56 78',email:'contact@exemple.fr',note:'4,9',nb:'48',a:0,f:'plus',page:'accueil',q:0,slide:0,cat:-1,menu:false,lb:-1,devis:{step:0,choix:null,delai:null}};
 var FIELDS=['nom','ville','tel','email','note','nb'];
 
 var $=function(i){return document.getElementById(i);};
@@ -465,30 +454,17 @@ function telHref(){return 'tel:'+String(S.tel).replace(/[^\d+]/g,'');}
 function waNum(){var d=String(S.tel).replace(/\D/g,'');if(d.charAt(0)==='0')d='33'+d.slice(1);return d;}
 function V(s){return esc(String(s).replace('{ville}',S.ville));}
 function pal(){var p=M[S.m].pal;return p[Math.max(0,Math.min(p.length-1,S.a|0))];}
-function rnd(i){var x=Math.sin(i*127.1+311.7)*43758.5453;return x-Math.floor(x);}
-
-/* ---------- Motifs ---------- */
-function art(m,p,mini){
-  if(m==='plombier') return '<svg class="art" viewBox="0 0 400 140" preserveAspectRatio="none" aria-hidden="true"><path d="M-10 40 H180 Q210 40 210 70 V90 Q210 120 240 120 H420" fill="none" stroke="'+p.hi+'" stroke-width="12" stroke-linecap="round"/><path d="M0 110 Q50 95 100 110 T200 110 T300 110 T400 110 V140 H0Z" fill="'+p.acc+'" opacity=".9"/></svg>';
-  if(m==='electricien') return '<svg class="art" viewBox="0 0 400 140" preserveAspectRatio="none" aria-hidden="true"><path d="M-10 90 H170 L195 40 L220 120 L245 60 L265 90 H420" fill="none" stroke="'+p.ink+'" stroke-width="9" stroke-linejoin="round"/></svg>';
-  if(m==='paysagiste') return '<svg class="art" viewBox="0 0 400 140" preserveAspectRatio="none" aria-hidden="true"><circle cx="300" cy="60" r="26" fill="'+p.hi+'"/><path d="M0 100 Q120 40 240 90 T400 80 V140 H0Z" fill="'+p.acc+'" opacity=".55"/><path d="M0 120 Q140 70 280 115 T400 105 V140 H0Z" fill="'+p.acc+'"/></svg>';
-  var s='';for(var i=0;i<48;i++){var x=i*8.6+rnd(i)*4,h=30+rnd(i+9)*60,lean=(rnd(i+3)-.5)*16;s+='<path d="M'+x.toFixed(1)+' 140 Q'+(x+3).toFixed(1)+' '+(140-h/2).toFixed(1)+' '+(x+lean).toFixed(1)+' '+(140-h).toFixed(1)+' Q'+(x+6).toFixed(1)+' '+(140-h/2).toFixed(1)+' '+(x+8).toFixed(1)+' 140Z" fill="'+(i%3?p.acc:p.hi)+'"/>';}
-  return '<svg class="art" viewBox="0 0 400 140" preserveAspectRatio="none" aria-hidden="true">'+s+'</svg>';
-}
+function pic(i,w,extra){var ph=M[S.m].photos[i%M[S.m].photos.length];return '<div class="pic"'+(extra||'')+'><img src="'+IMG(ph[0],w)+'" alt="'+esc(ph[1])+'" loading="lazy" decoding="async"></div>';}
 
 /* ---------- Configurateur ---------- */
 function renderConfig(){
-  $('tiles').innerHTML=Object.keys(M).map(function(k){var m=M[k],p=m.pal[0],on=S.m===k;
-    var w=k==='electricien'?'font-weight:900;font-stretch:125%;text-transform:uppercase;font-size:26px':k==='paysagiste'?'font-weight:400':k==='plombier'?'font-weight:800;font-stretch:78%;letter-spacing:-.04em':'font-weight:800;letter-spacing:-.03em';
-    return '<button class="tile" data-m="'+k+'" aria-pressed="'+on+'" style="background:'+p.bg+';color:'+p.ink+'">'+
-      '<div><div class="tt" style="font-family:'+m.fd.replace(/"/g,"'")+';'+w+'">'+m.label+'</div><div class="ts">'+m.sub+'</div></div>'+
-      '<div class="tn"><span>'+(on?esc(S.nom):'')+'</span><span class="check" style="background:'+p.ink+';color:'+p.bg+'">'+ic('check',16,3)+'</span></div>'+art(k,p,true)+'</button>';}).join('');
+  $('tiles').innerHTML=Object.keys(M).map(function(k){var m=M[k],on=S.m===k,ph=m.photos[0];
+    var w=k==='electricien'?'font-weight:800;font-stretch:118%;font-size:24px':k==='paysagiste'?'font-weight:400;font-size:36px':k==='plombier'?'font-weight:800;font-stretch:80%;letter-spacing:-.04em':'font-weight:800;letter-spacing:-.03em';
+    return '<button class="tile" data-m="'+k+'" aria-pressed="'+on+'"><div class="pic"><img src="'+IMG(ph[0],800)+'" alt="" loading="lazy"></div><span class="shade"></span>'+
+      '<span class="txt"><span><span class="tt" style="display:block;font-family:'+m.fd.replace(/"/g,"'")+';'+w+'">'+m.label+'</span><span class="ts" style="display:block">'+m.sub+'</span></span><span class="check">'+ic('check',18,3)+'</span></span></button>';}).join('');
   $('plans').innerHTML=Object.keys(PLANS).map(function(k){var p=PLANS[k];
     return '<button class="plan" data-p="'+k+'" aria-pressed="'+(S.f===k)+'"><div><div class="pn">'+p.nom+'</div><div class="pp">'+p.prix+'</div></div><div class="pd">'+p.desc+'</div><ul>'+
       (k!=='simple'?'<li>'+ic('check',15,2.4)+'Tout '+(k==='plus'?'Simple':'Plus')+', et :</li>':'')+p.li.map(function(l){return '<li>'+ic('check',15,2.4)+esc(l)+'</li>';}).join('')+'</ul></button>';}).join('');
-  var p0=M[S.m].pal[0];
-  $('go').style.setProperty('--go',p0.acc);$('go').style.setProperty('--go-on',p0.on);
-  if(S.m==='electricien'){$('go').style.setProperty('--go',p0.bg);$('go').style.setProperty('--go-on',p0.ink);}
   $('recap').innerHTML='<strong>'+esc(S.nom||'Votre entreprise')+'</strong>, '+M[S.m].label.toLowerCase()+' à '+esc(S.ville)+', formule <strong>'+PLANS[S.f].nom+'</strong>';
   mail();
 }
@@ -497,121 +473,115 @@ function syncInputs(){FIELDS.forEach(function(k){$(k).value=S[k];});}
 /* ---------- Site ---------- */
 function pages(){
   if(S.f==='simple') return [];
-  var p=[['accueil','Accueil'],['services','Services'],['realisations','Réalisations'],['avis','Avis'],['contact',S.f==='pro'?'Devis':'Contact']];
+  var p=[['accueil','Accueil'],['services','Prestations'],['realisations','Réalisations'],['avis','Avis'],['contact',S.f==='pro'?'Devis':'Contact']];
   if(S.f==='pro') p.splice(4,0,['zone','Secteur']);
   return p;
 }
-function photo(i,cls,cap){
-  var m=M[S.m];
-  return '<figure class="ph '+(cls||'')+'" style="margin:0">'+ic(m.icon,24,1.2).replace('<svg','<svg class="mo"')+'<img src="'+PHOTO_DIR+S.m+'-'+(i+1)+'.jpg" alt="'+esc(m.photos[i%6])+'" loading="lazy">'+(cap===false?'':'<figcaption>'+esc(m.photos[i%6])+'</figcaption>')+'</figure>';
-}
 function telBtn(cls,inner,style){return '<a class="'+cls+'" href="'+telHref()+'"'+(style?' style="'+style+'"':'')+'>'+inner+'</a>';}
-function devisLabel(){return S.f==='pro'?'Devis en 2 minutes':'Demander un devis';}
 
 function hero(){
-  var m=M[S.m],p=pal(),k=S.m;
-  var cta='<div class="btns"><button class="btn p" data-go="contact">'+devisLabel()+'</button>'+telBtn('btn s',ic('phone',18)+esc(S.tel))+'</div>';
-  if(k==='plombier'){
-    var txt='Note Google '+S.note+' sur 5 • '+S.nb+' avis • ';
-    return '<section class="hero hp"><div class="in"><h1 class="h1 disp">'+V(m.h[0])+'<span>'+V(m.h[1])+'</span></h1>'+
-      '<div class="row"><p class="lede">'+V(m.lede)+'</p>'+cta+
-      '<div class="badge" aria-label="Note Google '+esc(S.note)+' sur 5"><svg viewBox="0 0 168 168" aria-hidden="true"><defs><path id="circ" d="M84 84 m-72 0 a72 72 0 1 1 144 0 a72 72 0 1 1 -144 0"/></defs><text font-size="13" font-weight="600" letter-spacing="2" fill="currentColor"><textPath href="#circ">'+esc(txt+txt)+'</textPath></text></svg><div><b>'+esc(S.note)+'</b><small>'+stars(S.note)+'</small></div></div></div></div>'+
-      '<svg class="pipe" viewBox="0 0 1440 250" preserveAspectRatio="none" aria-hidden="true">'+
-      '<path class="draw" d="M-20 70 H560 Q620 70 620 130 V150 Q620 200 680 200 H1460" fill="none" stroke="'+p.hi+'" stroke-width="22" stroke-linecap="round"/>'+
-      '<path d="M0 215 Q120 195 240 215 T480 215 T720 215 T960 215 T1200 215 T1440 215 V250 H0Z" fill="'+p.acc+'"/>'+
-      '<circle class="drop" cx="1100" cy="170" r="12" fill="'+p.acc+'"/></svg></section>';
-  }
-  if(k==='electricien'){
-    return '<section class="hero he"><div class="in"><h1 class="h1 disp">'+V(m.h[0])+'<br>'+V(m.h[1])+'</h1>'+
-      '<svg class="wire" viewBox="0 0 1200 110" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 H520 L565 12 L610 100 L655 30 L690 70 H1200" fill="none" stroke="'+p.ink+'" stroke-width="10" stroke-linejoin="round"/></svg>'+
-      '<div class="row"><p class="lede">'+V(m.lede)+'</p>'+cta+'<div class="sticker"><b>'+esc(S.note)+'</b><div>'+stars(S.note)+'<small>'+esc(S.nb)+' avis Google</small></div></div></div></div></section>';
-  }
-  if(k==='paysagiste'){
-    return '<section class="hero hl"><div class="in"><div class="rate"><span style="color:'+p.hi+'">'+stars(S.note)+'</span>'+esc(S.note)+' sur 5, '+esc(S.nb)+' avis Google</div>'+
-      '<h1 class="h1 disp">'+V(m.h[0])+' '+V(m.h[1])+'</h1><p class="lede">'+V(m.lede)+'</p>'+cta+'</div>'+
-      '<svg class="hills" viewBox="0 0 1440 380" preserveAspectRatio="none" aria-hidden="true">'+
-      '<circle class="sun" cx="1040" cy="150" r="70" fill="'+p.hi+'"/>'+
-      '<path class="h" d="M0 230 Q260 120 560 210 T1100 180 T1440 200 V380 H0Z" fill="'+p.acc+'" opacity=".35"/>'+
-      '<path class="h h2" d="M0 290 Q300 190 640 280 T1200 250 T1440 270 V380 H0Z" fill="'+p.acc+'" opacity=".65"/>'+
-      '<path class="h h3" d="M0 340 Q380 260 760 330 T1440 320 V380 H0Z" fill="'+p.acc+'"/></svg></section>';
-  }
-  var g='';for(var i=0;i<140;i++){var x=i*10.4+rnd(i)*6,h=40+rnd(i+11)*110,lean=(rnd(i+5)-.5)*26,w=9+rnd(i+2)*5;
-    g+='<path style="animation-delay:'+(rnd(i+7)*.5).toFixed(2)+'s" d="M'+x.toFixed(1)+' 160 Q'+(x+w*.3).toFixed(1)+' '+(160-h*.55).toFixed(1)+' '+(x+lean).toFixed(1)+' '+(160-h).toFixed(1)+' Q'+(x+w*.7).toFixed(1)+' '+(160-h*.5).toFixed(1)+' '+(x+w).toFixed(1)+' 160Z" fill="'+(i%4===0?p.hi:(i%2?p.acc:'color-mix(in srgb,'+p.acc+' 70%,'+p.ink+')'))+'"/>';}
-  return '<section class="hero hj"><div class="in"><div class="grid"><div><h1 class="h1 disp">'+V(m.h[0])+'<br>'+V(m.h[1])+'</h1><p class="lede">'+V(m.lede)+'</p>'+cta+'</div>'+
-    '<div class="round">'+photo(0,'',false)+'<div class="sun"><b>'+esc(S.note)+'</b><small>'+esc(S.nb)+' avis<br>Google</small></div></div></div></div>'+
-    '<svg class="grass" viewBox="0 0 1440 160" preserveAspectRatio="none" aria-hidden="true">'+g+'</svg></section>';
+  var m=M[S.m];
+  var slides=[0,1,2].map(function(i){return '<div class="slide'+(i===S.slide?' on':'')+'" data-slide="'+i+'">'+pic(i,2000,' aria-hidden="true"')+'</div>';}).join('');
+  return '<section class="hero">'+slides+'<div class="veil"></div>'+
+    '<div class="in"><div class="rate"><b>'+stars(S.note)+'</b>'+esc(S.note)+' sur 5, '+esc(S.nb)+' avis Google</div>'+
+    '<h1 class="h1 disp">'+V(m.h)+'</h1><div class="row"><p class="lede">'+V(m.lede)+'</p>'+
+    '<div class="btns"><button class="btn p" data-go="contact">'+(S.f==='pro'?'Devis en 2 minutes':'Demander un devis')+'</button>'+telBtn('btn w',ic('phone',18)+esc(S.tel))+'</div></div></div>'+
+    '<div class="dots" role="group" aria-label="Photos">'+[0,1,2].map(function(i){return '<button data-dot="'+i+'" class="'+(i===S.slide?'on':'')+'" aria-label="Photo '+(i+1)+'"></button>';}).join('')+'</div></section>';
+}
+function intro(){
+  var m=M[S.m];
+  return '<section class="sec"><div class="in intro"><div><h2 class="h2 disp">'+V(m.intro[0])+'</h2><p>'+V(m.intro[1])+'</p><div class="btns"><button class="btn s" data-go="contact">Parler de mon projet</button></div></div>'+
+    '<div class="collage">'+pic(3,1000,' style="position:absolute" class="a"').replace('class="pic"','class="pic a"')+pic(4,800).replace('class="pic"','class="pic b"')+'<div class="since"><small>Depuis</small><b>'+m.depuis+'</b></div></div></div></section>';
+}
+function services(){
+  var m=M[S.m];
+  return '<section class="sec" style="padding-top:0"><div class="in"><div class="sechead"><h2 class="h2 disp">Nos prestations</h2><p>Des interventions soignées, du petit dépannage au chantier complet.</p></div><div class="cards">'+
+    m.services.map(function(s,i){return '<button class="card" data-go="contact" aria-label="'+esc(s[0])+' : demander un devis">'+pic(s[2],900)+'<span class="shade"></span><span class="ct"><h3 class="disp">'+esc(s[0])+'</h3><p>'+esc(s[1])+'</p><span class="more">Demander un devis '+ic('up',16,2.2)+'</span></span></button>';}).join('')+'</div></div></section>';
 }
 function band(){
-  return '<section class="band"><div class="in">'+M[S.m].eng.map(function(e){return '<div class="it">'+ic(e[0],28,1.8)+'<div><b>'+esc(e[1])+'</b><span>'+esc(e[2])+'</span></div></div>';}).join('')+'</div></section>';
-}
-function services(full){
   var m=M[S.m];
-  return '<section class="sec"><div class="in"><h2 class="h2 disp">Ce que nous faisons pour vous.</h2><div class="svcs">'+
-    m.services.map(function(s){return '<div class="svc"><h3 class="disp">'+esc(s[0])+'</h3><p>'+esc(s[1])+'</p><button class="ask" data-go="contact" aria-label="Demander un devis : '+esc(s[0])+'">'+ic('up',20,2.2)+'</button></div>';}).join('')+'</div></div></section>';
+  return '<section class="band">'+pic(5,2000,' aria-hidden="true"')+'<div class="veil"></div><div class="in">'+m.eng.map(function(e){return '<div class="it">'+ic(e[0],34,1.6)+'<b class="disp">'+esc(e[1])+'</b><span>'+esc(e[2])+'</span></div>';}).join('')+'</div></section>';
 }
 function gallery(){
-  if(S.f==='simple') return '<section class="sec" style="padding-top:0"><div class="in"><h2 class="h2 disp">Nos derniers chantiers.</h2><div class="gs">'+[1,2,3].map(function(i){return photo(i);}).join('')+'</div></div></section>';
-  return '<section class="sec" style="padding-top:0"><div class="in"><h2 class="h2 disp">Avant, après.</h2><div class="gal">'+
-    '<div class="ph g1 ba"><div class="bef"><span class="l" style="left:14px">Avant</span></div><div style="position:relative">'+photo(1,'',false).replace('class="ph ','class="ph " style="position:absolute;inset:0;border-radius:0;margin:0" data-x="')+'<span class="l" style="right:14px">Après</span></div><span class="knob"><i>'+ic('lr',22)+'</i></span></div>'+
-    photo(2,'g2')+'<div class="ph g3 vid"><i>'+ic('play',28)+'</i></div>'+photo(3,'g4')+photo(4,'g5')+photo(5,'g6')+'</div></div></section>';
+  var m=M[S.m];
+  if(S.f==='simple') return '<section class="sec"><div class="in"><div class="sechead"><h2 class="h2 disp">Nos réalisations</h2></div><div class="gsimple">'+[0,2,4].map(function(i){return pic(i,900);}).join('')+'</div></div></section>';
+  var cats='<div class="filters" role="group" aria-label="Filtrer les réalisations"><button data-cat="-1" class="'+(S.cat<0?'on':'')+'">Tout</button>'+m.services.map(function(s,i){return '<button data-cat="'+i+'" class="'+(S.cat===i?'on':'')+'">'+esc(s[0])+'</button>';}).join('')+'</div>';
+  var ratios=['4/5','1/1','3/4','4/3','1/1','4/5','3/4','4/3'];
+  var shots=m.photos.map(function(ph,i){if(S.cat>=0&&ph[2]!==S.cat)return '';
+    return '<button class="shot" data-lb="'+i+'" aria-label="Agrandir : '+esc(ph[1])+'">'+pic(i,900,' style="aspect-ratio:'+ratios[i]+'"')+'<figcaption>'+esc(ph[1])+'</figcaption></button>';}).join('');
+  return '<section class="sec"><div class="in"><div class="sechead"><h2 class="h2 disp">Nos réalisations</h2><p>Quelques chantiers récents. Cliquez sur une photo pour l\'agrandir.</p></div>'+cats+'<div class="masonry">'+shots+'</div></div></section>';
 }
 function reviews(){
   var m=M[S.m];
-  if(S.f==='simple') return '<section class="sec" style="padding-top:0"><div class="in"><div class="srate"><div><div class="big disp">'+esc(S.note)+'/5</div><div class="stars">'+stars(S.note)+'</div><div class="demo">'+esc(S.nb)+' avis sur Google</div></div><a class="btn s" href="#">Lire les avis</a></div></div></section>';
+  if(S.f==='simple') return '<section class="sec reviews" style="padding:clamp(48px,6cqw,80px) 0"><div class="in"><div class="stars">'+stars(S.note)+'</div><h2 class="h2 disp" style="margin:12px auto 0">'+esc(S.note)+' sur 5</h2><p class="demo" style="font-size:16px">'+esc(S.nb)+' avis sur Google</p></div></section>';
   var q=m.avis[S.q%m.avis.length];
-  return '<section class="sec" style="background:var(--soft)"><div class="in"><div class="rv"><div><blockquote class="quote disp">« '+esc(q[0])+' »</blockquote>'+
-    '<div class="qmeta"><strong>'+esc(q[1])+'</strong><span class="demo">Avis d\'exemple</span><div class="qnav"><button data-q="-1" aria-label="Avis précédent">'+ic('left',22)+'</button><button data-q="1" aria-label="Avis suivant">'+ic('right',22)+'</button></div></div></div>'+
-    '<div class="score"><div class="big disp">'+esc(S.note)+'</div><div class="stars">'+stars(S.note)+'</div><p style="margin:0 0 20px">'+esc(S.nb)+' avis Google, affichés automatiquement.</p><a class="btn s" href="#">Laisser un avis</a></div></div></div></section>';
+  return '<section class="sec reviews"><div class="in"><div class="stars">★★★★★</div><blockquote class="quote disp">« '+esc(q[0])+' »</blockquote><div class="who">'+esc(q[1])+' <span class="demo">(avis d\'exemple)</span></div>'+
+    '<div class="qnav"><button data-q="-1" aria-label="Avis précédent">'+ic('left',22)+'</button><span class="demo">'+(S.q%3+1)+' / 3</span><button data-q="1" aria-label="Avis suivant">'+ic('right',22)+'</button></div>'+
+    '<div class="gscore"><b class="disp">'+esc(S.note)+'</b><span>'+stars(S.note)+'<br><span class="demo">'+esc(S.nb)+' avis Google, mis à jour automatiquement</span></span></div></div></section>';
+}
+function form(){
+  var m=M[S.m],d=S.devis,f;
+  if(S.f!=='pro') return '<div class="form"><h3 class="disp">Écrivez-nous</h3><div class="two"><div class="fl"><label for="c-n">Nom</label><input id="c-n" autocomplete="name"></div><div class="fl"><label for="c-t">Téléphone</label><input id="c-t" type="tel" autocomplete="tel"></div></div><div class="fl"><label for="c-m">Votre besoin</label><textarea id="c-m"></textarea></div><button class="btn p" data-send="1">Envoyer ma demande</button></div>';
+  var prog='<div class="prog" aria-label="Étape '+Math.min(3,d.step+1)+' sur 3">'+[0,1,2].map(function(i){return '<i class="'+(i<=d.step?'on':'')+'"></i>';}).join('')+'</div>';
+  f='<div class="form"><h3 class="disp">Votre devis en ligne</h3>'+(d.step<3?prog:'');
+  if(d.step===0) f+='<p class="demo" style="margin:0">De quoi avez-vous besoin ?</p><div class="opts">'+m.opts.map(function(o){return '<button class="opt'+(d.choix===o?' sel':'')+'" data-choix="'+esc(o)+'">'+esc(o)+'</button>';}).join('')+'</div><button class="btn p" data-next="1"'+(d.choix?'':' disabled')+'>Continuer</button>';
+  else if(d.step===1) f+='<p class="demo" style="margin:0">Pour quand ?</p><div class="opts">'+['C\'est urgent','Sous un mois','Dans trois mois','Je me renseigne'].map(function(o){return '<button class="opt'+(d.delai===o?' sel':'')+'" data-delai="'+esc(o)+'">'+esc(o)+'</button>';}).join('')+'</div><button class="opt" style="display:flex;align-items:center;justify-content:center;gap:8px;border-style:dashed">'+ic('camera',18)+'Ajouter une photo</button><div class="btns"><button class="btn s" data-prev="1">Retour</button><button class="btn p" style="flex:1" data-next="1"'+(d.delai?'':' disabled')+'>Continuer</button></div>';
+  else if(d.step===2) f+='<div class="two"><div class="fl"><label for="d-n">Nom</label><input id="d-n" autocomplete="name"></div><div class="fl"><label for="d-t">Téléphone</label><input id="d-t" type="tel" autocomplete="tel"></div></div><div class="fl"><label for="d-v">Commune</label><input id="d-v" value="'+esc(S.ville)+'"></div><div class="btns"><button class="btn s" data-prev="1">Retour</button><button class="btn p" style="flex:1" data-next="1">Recevoir mon devis</button></div>';
+  else f+='<div class="done"><i>'+ic('check',32,2.6)+'</i><h3 class="disp">Demande envoyée</h3><p class="demo" style="margin:0">'+esc(d.choix)+', '+esc(d.delai).toLowerCase()+'. '+esc(S.nom)+' vous rappelle sous 24 h.</p><button class="btn s" data-reset="1">Faire une autre demande</button></div>';
+  return f+'<p class="demo" style="margin:0">Vos informations servent uniquement à vous répondre.</p></div>';
 }
 function contact(){
-  var m=M[S.m],d=S.devis,f;
-  if(S.f!=='pro'){
-    f='<div class="form"><h3 class="disp">Écrivez-nous</h3><div class="fl"><label for="c-n">Nom</label><input id="c-n" autocomplete="name"></div><div class="fl"><label for="c-t">Téléphone</label><input id="c-t" type="tel" autocomplete="tel"></div><div class="fl"><label for="c-m">Votre besoin</label><textarea id="c-m"></textarea></div><button class="btn p" data-send="1">Envoyer ma demande</button></div>';
-  } else {
-    var prog='<div class="prog" aria-label="Étape '+Math.min(3,d.step+1)+' sur 3">'+[0,1,2].map(function(i){return '<i class="'+(i<=d.step?'on':'')+'"></i>';}).join('')+'</div>';
-    f='<div class="form"><h3 class="disp">Votre devis</h3>'+(d.step<3?prog:'');
-    if(d.step===0) f+='<p style="margin:0" class="demo">De quoi avez-vous besoin ?</p><div class="opts">'+m.opts.map(function(o){return '<button class="opt'+(d.choix===o?' sel':'')+'" data-choix="'+esc(o)+'">'+esc(o)+'</button>';}).join('')+'</div><button class="btn p" data-next="1"'+(d.choix?'':' disabled')+'>Continuer</button>';
-    else if(d.step===1) f+='<p style="margin:0" class="demo">Pour quand ?</p><div class="opts">'+['C\'est urgent','Sous un mois','Dans trois mois','Je me renseigne'].map(function(o){return '<button class="opt'+(d.delai===o?' sel':'')+'" data-delai="'+esc(o)+'">'+esc(o)+'</button>';}).join('')+'</div><button class="opt" style="display:flex;align-items:center;justify-content:center;gap:8px;border-style:dashed">'+ic('camera',18)+'Ajouter une photo</button><div class="btns"><button class="btn s" data-prev="1">Retour</button><button class="btn p" style="flex:1;justify-content:center" data-next="1"'+(d.delai?'':' disabled')+'>Continuer</button></div>';
-    else if(d.step===2) f+='<div class="fl"><label for="d-n">Nom</label><input id="d-n" autocomplete="name"></div><div class="fl"><label for="d-t">Téléphone</label><input id="d-t" type="tel" autocomplete="tel"></div><div class="fl"><label for="d-v">Commune</label><input id="d-v" value="'+esc(S.ville)+'"></div><div class="btns"><button class="btn s" data-prev="1">Retour</button><button class="btn p" style="flex:1;justify-content:center" data-next="1">Recevoir mon devis</button></div>';
-    else f+='<div class="done"><i>'+ic('check',32,2.6)+'</i><h3 class="disp">Demande envoyée</h3><p style="margin:0" class="demo">'+esc(d.choix)+', '+esc(d.delai).toLowerCase()+'. '+esc(S.nom)+' vous rappelle sous 24 h.</p><button class="btn s" data-reset="1">Faire une autre demande</button></div>';
-    f+='<p style="margin:0;font-size:13px" class="demo">Vos informations servent uniquement à vous répondre.</p></div>';
-  }
-  return '<section class="sec dark" id="s-contact"><div class="in"><div class="ct"><div><h2 class="h2 disp">Parlons de votre projet.</h2><div class="clines">'+
-    telBtn('',esc(S.tel)+'<span>Appeler</span>')+'<a href="mailto:'+esc(S.email)+'">'+esc(S.email)+'<span>Écrire</span></a><div>'+esc(S.ville)+' et alentours<span>[XX] km</span></div><div>Du lundi au samedi<span>8 h – 19 h</span></div></div>'+
-    (S.f==='pro'?'<a class="wa" href="https://wa.me/'+waNum()+'" target="_blank" rel="noopener">'+ic('chat',20)+'Écrire sur WhatsApp</a>':'')+'</div>'+f+'</div></div></section>';
+  return '<section class="contact" id="s-contact">'+pic(6,1400)+'<div class="side"><h2 class="h2 disp">Parlons de votre projet.</h2>'+
+    '<div class="clines"><div><small>Téléphone</small>'+telBtn('',esc(S.tel))+'</div><div><small>Email</small><a href="mailto:'+esc(S.email)+'">'+esc(S.email)+'</a></div><div><small>Secteur</small>'+esc(S.ville)+' et [XX] km autour</div><div><small>Horaires</small>Lun – Sam, 8 h – 19 h</div></div>'+
+    (S.f==='pro'?'<a class="wa" href="https://wa.me/'+waNum()+'" target="_blank" rel="noopener">'+ic('chat',20)+'Écrire sur WhatsApp</a>':'')+form()+'</div></section>';
 }
 function zone(){
   var p=pal();
-  return '<section class="sec"><div class="in"><h2 class="h2 disp">Nous intervenons à '+esc(S.ville)+' et autour.</h2><div class="map"><svg width="100%" height="380" viewBox="0 0 1200 380" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 150 C260 90 450 240 700 180 S1060 90 1200 150" stroke="'+p.ink+'" stroke-opacity=".12" stroke-width="18" fill="none"/><path d="M380 0 C430 140 330 250 440 380" stroke="'+p.ink+'" stroke-opacity=".12" stroke-width="12" fill="none"/><path d="M830 0 C800 150 900 250 860 380" stroke="'+p.ink+'" stroke-opacity=".1" stroke-width="10" fill="none"/><circle cx="600" cy="190" r="150" fill="'+p.acc+'" fill-opacity=".14"/><circle cx="600" cy="190" r="150" fill="none" stroke="'+p.acc+'" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round"/><circle cx="600" cy="190" r="16" fill="'+p.acc+'"/><circle cx="600" cy="190" r="6" fill="'+p.bg+'"/></svg></div>'+
-    '<div class="towns"><a href="#">'+esc(M[S.m].label)+' à '+esc(S.ville)+'</a><a href="#">[Commune 2]</a><a href="#">[Commune 3]</a><a href="#">[Commune 4]</a><a href="#">[Commune 5]</a></div></div></section>';
+  return '<section class="sec"><div class="in zone"><div><h2 class="h2 disp">Nous intervenons à '+esc(S.ville)+' et autour.</h2><p class="demo" style="font-size:18px;margin:20px 0 0">Chaque commune a sa page, pour que vos clients vous trouvent en cherchant « '+esc(M[S.m].mot)+' + leur commune ».</p>'+
+    '<div class="towns"><a href="#">'+esc(M[S.m].label)+' à '+esc(S.ville)+'</a><a href="#">[Commune 2]</a><a href="#">[Commune 3]</a><a href="#">[Commune 4]</a><a href="#">[Commune 5]</a></div></div>'+
+    '<div class="map"><svg width="100%" height="100%" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M0 240 C180 180 320 330 500 270 S740 170 800 230" stroke="'+p.ink+'" stroke-opacity=".12" stroke-width="18" fill="none"/><path d="M260 0 C300 200 210 380 300 600" stroke="'+p.ink+'" stroke-opacity=".1" stroke-width="12" fill="none"/><path d="M580 0 C550 220 640 390 600 600" stroke="'+p.ink+'" stroke-opacity=".08" stroke-width="10" fill="none"/><circle cx="400" cy="300" r="200" fill="'+p.acc+'" fill-opacity=".12"/><circle cx="400" cy="300" r="200" fill="none" stroke="'+p.acc+'" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/><circle cx="400" cy="300" r="18" fill="'+p.acc+'"/><circle cx="400" cy="300" r="7" fill="'+p.bg+'"/></svg></div></div></section>';
 }
 function news(){
-  return '<section class="sec" style="padding-top:0"><div class="in"><h2 class="h2 disp">Nos conseils.</h2><div class="news">'+M[S.m].news.map(function(n,i){return '<a href="#">'+photo(i+2,'',false)+'<h3 class="disp">'+esc(n)+'</h3><span class="demo">Par '+esc(S.nom)+'</span></a>';}).join('')+'</div></div></section>';
+  return '<section class="sec" style="padding-top:0"><div class="in"><div class="sechead"><h2 class="h2 disp">Nos conseils</h2></div><div class="news">'+M[S.m].news.map(function(n){return '<a href="#">'+pic(n[1],900)+'<h3 class="disp">'+esc(n[0])+'</h3><span class="demo">Par '+esc(S.nom)+'</span></a>';}).join('')+'</div></div></section>';
+}
+function footer(){
+  var m=M[S.m],pg=pages();
+  return '<footer><div class="in"><div class="top"><div><div class="logo disp">'+esc(S.nom)+'</div><p style="margin-top:12px;opacity:.7">'+esc(m.label)+' à '+esc(S.ville)+'</p></div>'+
+    '<div><h4>Coordonnées</h4><p>'+esc(S.tel)+'<br>'+esc(S.email)+'<br>[Adresse]</p></div>'+
+    '<div><h4>Horaires</h4><p>Lundi – vendredi : 8 h – 19 h<br>Samedi : 9 h – 17 h</p></div>'+
+    '<div><h4>Navigation</h4><ul>'+(pg.length?pg.map(function(x){return '<li>'+x[1]+'</li>';}).join(''):'<li>Accueil</li><li>Contact</li>')+'</ul></div></div>'+
+    '<div class="bottom"><span>'+esc(S.nom)+', SIRET [numéro]</span><span>Mentions légales · Confidentialité · Photos d\'illustration</span></div></div></footer>';
 }
 
 function renderSite(){
   var m=M[S.m],p=pal(),el=$('site');
   el.setAttribute('data-m',S.m);
-  el.style.setProperty('--bg',p.bg);el.style.setProperty('--ink',p.ink);el.style.setProperty('--acc',p.acc);el.style.setProperty('--on',p.on);el.style.setProperty('--hi',p.hi);el.style.setProperty('--fd',m.fd);
+  [['--bg',p.bg],['--ink',p.ink],['--acc',p.acc],['--on',p.on],['--hi',p.hi],['--fd',m.fd]].forEach(function(v){el.style.setProperty(v[0],v[1]);});
   var pg=pages();if(!pg.some(function(x){return x[0]===S.page;}))S.page='accueil';var cur=S.page;
+  var hasHero=(S.f==='simple'||cur==='accueil');
   var tabs=pg.map(function(x){return '<button data-page="'+x[0]+'" class="'+(x[0]===cur?'cur':'')+'"'+(x[0]===cur?' aria-current="page"':'')+'>'+x[1]+'</button>';}).join('');
-  var nav='<header class="nav"><div class="in"><a class="logo disp" href="#" data-page="accueil">'+esc(S.nom)+'</a><nav class="links" aria-label="Menu">'+tabs+telBtn('tel',ic('phone',16)+esc(S.tel))+'</nav></div>'+(pg.length?'<nav class="mnav" aria-label="Menu">'+tabs+'</nav>':'')+'</header>';
+  var nav='<header class="nav'+(hasHero?'':' solid')+'" id="snav"><div class="in"><button class="logo disp" data-page="accueil">'+esc(S.nom)+'</button><nav class="links" aria-label="Menu">'+tabs+telBtn('tel',ic('phone',16)+esc(S.tel))+'</nav>'+
+    '<button class="burger" data-menu="1" aria-label="Ouvrir le menu">'+ic('menu',26)+'</button></div></header>';
+  var drawer=S.menu?'<div class="drawer" role="dialog" aria-label="Menu"><button class="close" data-menu="0" aria-label="Fermer le menu">'+ic('x',28)+'</button>'+(pg.length?pg:[['accueil','Accueil'],['contact','Contact']]).map(function(x){return '<button class="it disp" data-page="'+x[0]+'">'+x[1]+'</button>';}).join('')+telBtn('tel',ic('phone',16)+esc(S.tel))+'</div>':'';
+  var pad='<div style="height:84px"></div>';
   var b;
-  if(S.f==='simple') b=hero()+band()+services()+gallery()+reviews()+contact();
-  else if(cur==='accueil') b=hero()+band()+services()+gallery()+reviews()+(S.f==='pro'?'<div style="height:clamp(64px,10cqw,140px)"></div>'+news():'')+contact();
-  else if(cur==='services') b=services(true)+band()+contact();
-  else if(cur==='realisations') b='<div style="height:clamp(64px,10cqw,140px)"></div>'+gallery();
-  else if(cur==='avis') b=reviews();
-  else if(cur==='zone') b=zone()+contact();
-  else b=contact();
-  var foot='<footer><div class="in"><div class="logo disp">'+esc(S.nom)+'</div><div class="cols"><div><b>Contact</b>'+esc(S.tel)+'<br>'+esc(S.email)+'</div><div><b>Entreprise</b>'+esc(m.label)+' à '+esc(S.ville)+'<br>SIRET [numéro]</div><div><b>Informations</b>Mentions légales<br>Confidentialité</div></div></div></footer>';
+  if(S.f==='simple') b=hero()+intro()+services()+band()+gallery()+reviews()+contact();
+  else if(cur==='accueil') b=hero()+intro()+services()+band()+gallery()+reviews()+(S.f==='pro'?news():'')+contact();
+  else if(cur==='services') b=pad+services()+band()+contact();
+  else if(cur==='realisations') b=pad+gallery();
+  else if(cur==='avis') b=pad+reviews();
+  else if(cur==='zone') b=pad+zone()+contact();
+  else b=pad+contact();
+  var lb='';
+  if(S.lb>=0){var ph=m.photos[S.lb];lb='<div class="lightbox" role="dialog" aria-label="'+esc(ph[1])+'"><button class="x" data-lbclose="1" aria-label="Fermer">'+ic('x',24)+'</button>'+pic(S.lb,2000)+'<div class="cap">'+esc(ph[1])+'</div></div>';}
   var sticky='<div class="sticky">'+telBtn('',ic('phone',18)+'Appeler','background:var(--soft);color:var(--ink)')+'<button data-go="contact" style="background:var(--acc);color:var(--on)">'+(S.f==='pro'?'Mon devis':'Devis gratuit')+'</button></div>';
-  el.innerHTML=nav+'<main>'+b+'</main>'+foot+sticky;
+  el.innerHTML=nav+drawer+'<main>'+b+'</main>'+footer()+sticky+lb;
   document.title=S.nom+', '+m.label.toLowerCase()+' à '+S.ville;
+  onScroll();
 }
 function renderBar(){
   $('dbPlans').innerHTML=Object.keys(PLANS).map(function(k){return '<button data-p="'+k+'" aria-pressed="'+(S.f===k)+'">'+PLANS[k].nom+'</button>';}).join('');
-  $('dbAmb').innerHTML=M[S.m].pal.map(function(p,i){return '<button data-a="'+i+'" aria-pressed="'+(S.a===i)+'" aria-label="Ambiance '+esc(p.n)+'" title="'+esc(p.n)+'" style="background:'+p.bg+'"><span style="background:'+(p.acc===p.ink?p.ink:p.acc)+'"></span></button>';}).join('');
+  $('dbAmb').innerHTML=M[S.m].pal.map(function(p,i){return '<button data-a="'+i+'" aria-pressed="'+(S.a===i)+'" aria-label="Ambiance '+esc(p.n)+'" title="'+esc(p.n)+'" style="background:'+p.ink+'"><span style="background:'+p.acc+'"></span></button>';}).join('');
   mail();
 }
 function mail(){
@@ -620,13 +590,30 @@ function mail(){
   $('want').href=href;$('topContact').href=href;
 }
 
-/* ---------- URL et vues ---------- */
+/* ---------- Diaporama et navigation ---------- */
+var timer=null;
+function startSlides(){
+  if(timer)clearInterval(timer);
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  timer=setInterval(function(){
+    if($('siteView').hidden)return;
+    var sl=document.querySelectorAll('#site .slide');if(!sl.length)return;
+    S.slide=(S.slide+1)%3;
+    sl.forEach(function(s,i){s.classList.toggle('on',i===S.slide);});
+    document.querySelectorAll('#site .dots button').forEach(function(d,i){d.classList.toggle('on',i===S.slide);});
+  },6500);
+}
+function onScroll(){var n=$('snav');if(!n)return;var hasHero=!!document.querySelector('#site .hero');n.classList.toggle('solid',!hasHero||window.scrollY>60);}
+window.addEventListener('scroll',onScroll,{passive:true});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&(S.lb>=0||S.menu)){S.lb=-1;S.menu=false;keep();}});
+
 function toQuery(demo){var q=new URLSearchParams();q.set('demo',demo?'1':'0');q.set('m',S.m);q.set('f',S.f);q.set('a',String(S.a));FIELDS.forEach(function(k){q.set(k,S[k]);});return q.toString();}
 function fromQuery(){var q;try{q=new URLSearchParams(location.search);}catch(e){return false;}
   if(q.get('m')&&M[q.get('m')])S.m=q.get('m');if(q.get('f')&&PLANS[q.get('f')])S.f=q.get('f');
   var a=parseInt(q.get('a'),10);if(!isNaN(a))S.a=Math.max(0,Math.min(2,a));
   FIELDS.forEach(function(k){if(q.has(k))S[k]=q.get(k).slice(0,80);});return q.get('demo')==='1';}
-function showSite(){$('configView').hidden=true;$('siteView').hidden=false;document.documentElement.setAttribute('data-theme','light');S.page='accueil';S.q=0;S.devis={step:0,choix:null,delai:null};renderBar();renderSite();window.scrollTo(0,0);}
+function resetSite(){S.page='accueil';S.q=0;S.slide=0;S.cat=-1;S.menu=false;S.lb=-1;S.devis={step:0,choix:null,delai:null};}
+function showSite(){$('configView').hidden=true;$('siteView').hidden=false;document.documentElement.setAttribute('data-theme','light');resetSite();renderBar();renderSite();window.scrollTo(0,0);startSlides();}
 function showConfig(){$('siteView').hidden=true;$('configView').hidden=false;document.documentElement.removeAttribute('data-theme');document.title='Voyez votre site avant de signer';syncInputs();renderConfig();window.scrollTo(0,0);}
 function openDemo(){
   var standalone=/^https?:$/.test(location.protocol),embedded=true;
@@ -634,23 +621,28 @@ function openDemo(){
   if(standalone&&!embedded){var w=window.open(location.pathname+'?'+toQuery(true),'_blank');if(w){try{w.opener=null;}catch(e){}return;}}
   showSite();
 }
+function keep(){var y=window.scrollY;renderSite();window.scrollTo(0,y);}
 
-document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'&&t.closest('.ph'))t.remove();},true);
+document.addEventListener('error',function(e){var t=e.target;if(t&&t.tagName==='IMG'&&t.parentNode&&t.parentNode.classList&&t.parentNode.classList.contains('pic'))t.style.display='none';},true);
 
 document.addEventListener('click',function(e){
   var t=e.target.closest('button,a');if(!t)return;
   if(!t.closest('#site')){
     if(t.dataset.m){var old=M[S.m];S.m=t.dataset.m;S.a=0;if(!S.nom||S.nom===old.nom)S.nom=M[S.m].nom;syncInputs();renderConfig();return;}
-    if(t.dataset.p){S.f=t.dataset.p;S.devis={step:0,choix:null,delai:null};if(!$('siteView').hidden){renderBar();var y=window.scrollY;renderSite();window.scrollTo(0,y);}else renderConfig();return;}
-    if(t.dataset.a){S.a=parseInt(t.dataset.a,10)||0;renderBar();var y2=window.scrollY;renderSite();window.scrollTo(0,y2);return;}
+    if(t.dataset.p){S.f=t.dataset.p;S.devis={step:0,choix:null,delai:null};if(!$('siteView').hidden){renderBar();keep();}else renderConfig();return;}
+    if(t.dataset.a){S.a=parseInt(t.dataset.a,10)||0;renderBar();keep();return;}
     return;
   }
   var h=t.getAttribute('href')||'';
   if(t.tagName==='A'&&/^(tel:|mailto:|https:\/\/wa\.me)/.test(h))return;
   e.preventDefault();
-  function keep(){var y=window.scrollY;renderSite();window.scrollTo(0,y);}
-  if(t.dataset.page){S.page=t.dataset.page;renderSite();window.scrollTo(0,0);return;}
-  if(t.dataset.go){var c=document.getElementById('s-contact');if(c)c.scrollIntoView({behavior:'smooth',block:'start'});else{S.page='contact';renderSite();window.scrollTo(0,0);}return;}
+  if(t.dataset.menu){S.menu=t.dataset.menu==='1';keep();return;}
+  if(t.dataset.page){S.page=t.dataset.page;S.menu=false;S.cat=-1;renderSite();window.scrollTo(0,0);return;}
+  if(t.dataset.go){S.menu=false;var c=document.getElementById('s-contact');if(c){c.scrollIntoView({block:'start'});}else{S.page='contact';renderSite();window.scrollTo(0,0);}return;}
+  if(t.dataset.dot){S.slide=parseInt(t.dataset.dot,10)||0;startSlides();keep();return;}
+  if(t.dataset.cat){S.cat=parseInt(t.dataset.cat,10);keep();return;}
+  if(t.dataset.lb){S.lb=parseInt(t.dataset.lb,10);keep();return;}
+  if(t.dataset.lbclose){S.lb=-1;keep();return;}
   if(t.dataset.q){S.q=(S.q+parseInt(t.dataset.q,10)+3)%3;keep();return;}
   if(t.dataset.send){var o=t.innerHTML;t.textContent='Demande envoyée';setTimeout(function(){t.innerHTML=o;},1600);return;}
   if(t.dataset.choix){S.devis.choix=t.dataset.choix;keep();return;}
@@ -659,6 +651,7 @@ document.addEventListener('click',function(e){
   if(t.dataset.prev){S.devis.step=Math.max(0,S.devis.step-1);keep();return;}
   if(t.dataset.reset){S.devis={step:0,choix:null,delai:null};keep();return;}
 });
+document.addEventListener('click',function(e){if(S.lb>=0&&e.target.classList&&e.target.classList.contains('lightbox')){S.lb=-1;keep();}});
 FIELDS.forEach(function(k){$(k).addEventListener('input',function(){S[k]=this.value;renderConfig();});});
 $('go').addEventListener('click',openDemo);
 $('back').addEventListener('click',function(){
